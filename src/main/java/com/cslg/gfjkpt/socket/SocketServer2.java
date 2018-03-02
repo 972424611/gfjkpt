@@ -52,6 +52,7 @@ public class SocketServer2 extends HttpServlet {
         t.start();
     }
 
+
     private void socketReceive(ServerSocket serverSocket) {
         try {
             while(true) {
