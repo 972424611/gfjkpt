@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.AdminMapper" >
+
+    <select id="selectAllUser" resultType="com.cslg.gfjkpt.model.User">
+        SELECT id, username, comment, create_time, update_time FROM tb_user
+    </select>
+
+    <select id="selectInverterName" resultType="String">
+        SELECT inverter_name FROM tb_user_inverter WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insertRelation">
+        INSERT INTO tb_user_inverter (user_id, inverter_name) VALUES (#{userId}, #{inverterName})
+    </insert>
+
+    <select id="selectUserPage" resultType="com.cslg.gfjkpt.model.User">
+        SELECT id, username, comment, create_time, update_time FROM tb_user ORDER BY id LIMIT #{pageQuery.offset}, #{pageQuery.pageSize}
+    </select>
+
+    <select id="selectUserTotal" resultType="Long">
+        SELECT count(id) FROM tb_user
+    </select>
+</mapper>

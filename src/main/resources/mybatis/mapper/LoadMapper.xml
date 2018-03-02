@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.LoadMapper" >
+
+    <insert id="insertLoad" parameterType="com.cslg.gfjkpt.model.Load">
+        INSERT INTO tb_load (load_name, times, energy_consumption)
+        VALUES (#{loadName}, #{times}, #{energyConsumption})
+    </insert>
+
+    <select id="selectLoadByDate" resultType="com.cslg.gfjkpt.model.Load">
+        SELECT * FROM tb_load WHERE load_name = #{loadName} AND times LIKE #{date}
+    </select>
+
+    <!--<select id="selectLoadEnergy" resultType="java.lang.Double">-->
+        <!--SELECT * FROM tb_load WHERE  load_name = #{loadName} AND times LIKE #{date}-->
+    <!--</select>-->
+</mapper>
