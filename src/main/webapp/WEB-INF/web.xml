@@ -54,11 +54,11 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-  <servlet>
-    <servlet-name>socketServer</servlet-name>
-    <servlet-class>com.cslg.gfjkpt.socket.SocketServer</servlet-class>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
+  <!--<servlet>-->
+    <!--<servlet-name>socketServer</servlet-name>-->
+    <!--<servlet-class>com.cslg.gfjkpt.socket.SocketServer</servlet-class>-->
+    <!--<load-on-startup>2</load-on-startup>-->
+  <!--</servlet>-->
 
   <servlet>
     <servlet-name>springDispatcherServlet</servlet-name>
@@ -76,9 +76,9 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>socketServer</servlet-name>
-    <url-pattern>/socket</url-pattern>
-  </servlet-mapping>
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>socketServer</servlet-name>-->
+    <!--<url-pattern>/socket</url-pattern>-->
+  <!--</servlet-mapping>-->
 
 </web-app>
