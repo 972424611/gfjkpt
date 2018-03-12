@@ -3,15 +3,25 @@ package com.cslg.gfjkpt.service.impl;
 import com.cslg.gfjkpt.beans.PageQuery;
 import com.cslg.gfjkpt.beans.PowerStationInfo;
 import com.cslg.gfjkpt.common.BeanValidator;
+import com.cslg.gfjkpt.common.CookieSessionManage;
+import com.cslg.gfjkpt.common.RequestHolder;
 import com.cslg.gfjkpt.mapper.AdminMapper;
+import com.cslg.gfjkpt.mapper.InverterMapper;
+import com.cslg.gfjkpt.mapper.LoadMapper;
+import com.cslg.gfjkpt.mapper.UserMapper;
 import com.cslg.gfjkpt.model.Inverter;
+import com.cslg.gfjkpt.model.Load;
 import com.cslg.gfjkpt.model.User;
 import com.cslg.gfjkpt.service.InverterService;
 import com.cslg.gfjkpt.service.AdminService;
+import com.cslg.gfjkpt.service.LoadService;
+import com.cslg.gfjkpt.service.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +32,10 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Autowired
-    private InverterService inverterService;
+    private InverterMapper inverterMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public List<PowerStationInfo> getList(PageQuery pageQuery) {
@@ -35,12 +48,13 @@ public class AdminServiceImpl implements AdminService {
             double totalOutput = 0;
             Date date = new Date();
             for(String inverterName : inverterNameList) {
-                Inverter inverter = inverterService.getInverterData(inverterName);
+                Inverter inverter = inverterMapper.selectInverterByName(inverterName);
                 dailyOutput = dailyOutput + inverter.getDailyOutput();
                 totalOutput = totalOutput + inverter.getTotalOutput();
                 date = inverter.getTimes();
             }
             PowerStationInfo powerStationInfo = new PowerStationInfo();
+            powerStationInfo.setUserId(user.getId());
             powerStationInfo.setDailyOutput(dailyOutput);
             powerStationInfo.setTotalOutput(totalOutput);
             powerStationInfo.setUpdateTimes(date);
@@ -53,5 +67,19 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public long getUserTotal() {
         return adminMapper.selectUserTotal();
+    }
+
+    @Override
+    public List<User> getUserList(PageQuery pageQuery) {
+        BeanValidator.check(pageQuery);
+        return adminMapper.selectUserPage(pageQuery);
+    }
+
+    @Override
+    public void visitUser(Integer id, HttpServletResponse response) {
+        User user = userMapper.selectUserById(id);
+        HttpServletRequest request = RequestHolder.getCurrentRequest();
+        CookieSessionManage.setSession(request, user);
+        CookieSessionManage.setCookie(response, "admin");
     }
 }

@@ -27,7 +27,7 @@
         SELECT total_active_power FROM inverter WHERE inverter_name = #{inverterName} ORDER BY id LIMIT #{length}
     </select>
 
-    <select id="selectInverterNumber" resultType="Long">
+    <select id="selectInverterTotal" resultType="Long">
         SELECT COUNT(id) FROM tb_inverter WHERE inverter_name = #{inverterName}
     </select>
 
@@ -42,5 +42,9 @@
 
     <select id="selectInverterByName" resultType="com.cslg.gfjkpt.model.Inverter">
         SELECT * FROM tb_inverter WHERE id = (SELECT MAX(id) FROM tb_inverter WHERE inverter_name = #{inverterName})
+    </select>
+
+    <select id="selectInverterNameList" resultType="String">
+        SELECT inverter_name FROM tb_user_inverter WHERE user_id = #{userId}
     </select>
 </mapper>

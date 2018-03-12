@@ -1,5 +1,8 @@
 package com.cslg.gfjkpt.common;
 
+import com.cslg.gfjkpt.utils.JsonUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +42,10 @@ public class ResultJson {
         this.ret = ret;
     }
 
+    public ResultJson() {
+
+    }
+
     public static ResultJson success(Object object, String msg) {
         ResultJson resultJson = new ResultJson(true);
         resultJson.data = object;
@@ -68,5 +75,18 @@ public class ResultJson {
         result.put("msg", msg);
         result.put("data", data);
         return result;
+    }
+
+    public String returnJsonp(Object object, HttpServletRequest request) {
+        ResultJson resultJson = ResultJson.success(object);
+        String json = JsonUtils.objectToJson(resultJson);
+        return request.getParameter("callback") + "(" + json + ")";
+    }
+
+    public String returnJsonp(Object object) {
+        ResultJson resultJson = ResultJson.success(object);
+        String json = JsonUtils.objectToJson(resultJson);
+        HttpServletRequest request = RequestHolder.getCurrentRequest();
+        return request.getParameter("callback") + "(" + json + ")";
     }
 }

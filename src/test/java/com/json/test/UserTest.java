@@ -16,12 +16,15 @@
 //    @Test
 //    public void createUserTest() {
 //        String url = "http://localhost:8080/user/register";
-//        Map<String, String> param = new HashMap<>();
-//        param.put("username", "admin");
-//        param.put("password", "123456");
-//       // param.put("comment", "长沙理工大学");
-//        String a = HttpClientUtils.doGet(url, param);
-//        System.out.println(a);
+//        for(int i = 24; i <= 100; i++) {
+//            Map<String, String> param = new HashMap<>();
+//            param.put("username", "root" + i);
+//            param.put("password", "123456");
+//            param.put("comment", "长沙理工大学_" +  i);
+//            String a = HttpClientUtils.doGet(url, param);
+//            System.out.println(a);
+//        }
+//
 //    }
 //
 //    @Test

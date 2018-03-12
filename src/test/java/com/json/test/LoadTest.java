@@ -1,5 +1,7 @@
 //package com.json.test;
 //
+//import com.cslg.gfjkpt.mapper.InverterMapper;
+//import com.cslg.gfjkpt.mapper.LoadMapper;
 //import com.cslg.gfjkpt.model.Inverter;
 //import com.cslg.gfjkpt.model.Load;
 //import com.cslg.gfjkpt.service.InverterService;
@@ -25,7 +27,10 @@
 //    private LoadService loadService;
 //
 //    @Autowired
-//    private InverterService inverterService;
+//    private LoadMapper loadMapper;
+//
+//    @Autowired
+//    private InverterMapper inverterMapper;
 //
 //    @Test
 //    public void test() {
@@ -36,7 +41,7 @@
 //                Load load = new Load();
 //                double s = (random.nextDouble() + 2) * 100.0;
 //                load.setEnergyConsumption(s);
-//                load.setLoadName("负荷1");
+//                load.setLoadName("root_load_1");
 //                Date date = new Date();
 //                //Calendar calendar = Calendar.getInstance();
 //                //calendar.setTime(date);
@@ -47,7 +52,7 @@
 //                date.setHours(j);
 //                load.setTimes(date);
 //                System.out.println(load.toString());
-//                loadService.saveLoadData(load);
+//                loadMapper.insertLoad(load);
 //            }
 //        }
 //    }
@@ -55,18 +60,18 @@
 //    @Test
 //    public void test2() {
 //        Random random = new Random();
-//        long startTime = 1514736001; //2018-1-1 0:0:0
-//        long endTime = 1517414399; //2018/1/31 23:59:59
+//        long startTime = 1519833600; //2018-1-1 0:0:0
+//        long endTime = 1522339200; //2018/1/31 23:59:59
 //        for(long i = startTime; i <= endTime;) {
 //            Load load = new Load();
 //            double s = (random.nextDouble() + 2) * 100.0;
 //            String str = String.valueOf(s);
 //            str = str.substring(0, 5);
 //            load.setEnergyConsumption(Double.parseDouble(str));
-//            load.setLoadName("负荷1");
+//            load.setLoadName("root_load_1");
 //            load.setTimes(new Date(i * 1000));
 //            System.out.println(new Date(i * 1000));
-//            loadService.saveLoadData(load);
+//            loadMapper.insertLoad(load);
 //            System.out.println(load.toString());
 //            i = i + 900;
 //        }
@@ -75,15 +80,15 @@
 //    @Test
 //    public void testInverter() {
 //        Random random = new Random();
-//        long startTime = 1514736001; //2018-1-1 0:0:0
-//        long endTime = 1517414399; //2018/1/31 23:59:59
+//        long startTime = 1520179200; //2018-1-1 0:0:0
+//        long endTime = 1520265600; //2018/1/31 23:59:59
 //        for(long i = startTime; i <= endTime;) {
 //            double s = (random.nextDouble() + 2) * 1000.0;
 //            String str = String.valueOf(s);
 //            str = str.substring(0, 5);
 //
 //            Inverter inverter = new Inverter();
-//            inverter.setInverterName("逆变器1");
+//            inverter.setInverterName("root_inverter_1");
 //            inverter.setTimes(new Date(i * 1000));
 //            inverter.setDailyOutput(Double.parseDouble(str));
 //            inverter.setTotalOutput(Double.parseDouble(str) / 100);
@@ -96,10 +101,12 @@
 //            inverter.setcPhaseCurrent(random.nextDouble());
 //
 //            inverter.setTotalActivePower(Double.parseDouble(str));
-//            inverterService.saveInverterData(inverter);
+//            //inverterService.saveInverterData(inverter);
+//            inverterMapper.insertInverter(inverter);
 //            System.out.println(inverter.toString());
-//            inverter.setInverterName("逆变器2");
-//            inverterService.saveInverterData(inverter);
+//            inverter.setInverterName("root_inverter_2");
+//            inverterMapper.insertInverter(inverter);
+//            //inverterService.saveInverterData(inverter);
 //            System.out.println(inverter.toString());
 //            i = i + 900;
 //        }

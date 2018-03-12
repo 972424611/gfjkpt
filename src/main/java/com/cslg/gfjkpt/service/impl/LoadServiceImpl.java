@@ -1,5 +1,6 @@
 package com.cslg.gfjkpt.service.impl;
 
+import com.cslg.gfjkpt.common.RequestHolder;
 import com.cslg.gfjkpt.model.Load;
 import com.cslg.gfjkpt.mapper.LoadMapper;
 import com.cslg.gfjkpt.service.LoadService;
@@ -19,12 +20,16 @@ public class LoadServiceImpl implements LoadService {
 
     @Override
     public void saveLoadData(Load load) {
+        String userName = RequestHolder.getCurrentUser().getUsername();
+        String loadName = userName + "_" + load.getLoadName();
+        load.setLoadName(loadName);
         loadMapper.insertLoad(load);
     }
 
     @Override
     public TreeMap<String, Double> getLoadDataByDate(String name, String dateType, String detailDate) {
         detailDate = "%" + detailDate + "%";
+        name = RequestHolder.getCurrentUser().getUsername() + "_" + name;
         List<Load> loadList = loadMapper.selectLoadByDate(name, detailDate);
         TreeMap<String, Double> resultMap = null;
         if(loadList != null && loadList.size() > 0) {

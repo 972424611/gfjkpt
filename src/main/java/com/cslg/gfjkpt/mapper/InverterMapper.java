@@ -55,4 +55,10 @@ public interface InverterMapper {
      */
     List<HashMap<String, Object>> selectInverterPowerByDate(@Param("inverterName") String inverterName, @Param("date") String date);
 
+    /**
+     * 获取用户逆变器
+     * @param userId 用户id
+     * @return List<String>
+     */
+    List<String> selectInverterNameList(int userId);
 }

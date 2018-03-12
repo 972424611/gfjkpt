@@ -32,9 +32,10 @@ public class LoadController {
 
     @ResponseBody
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ResultJson getLoadByDate(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
+    public String getLoadByDate(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
                                 @RequestParam("detailDate") String detailDate) {
         TreeMap<String, Double> resultMap = loadService.getLoadDataByDate(name, dateType, detailDate);
-        return ResultJson.success(resultMap);
+        //return ResultJson.success(resultMap);
+        return new ResultJson().returnJsonp(resultMap);
     }
 }

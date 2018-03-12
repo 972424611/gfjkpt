@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class PowerStationInfo {
 
+    private int UserId;
+
     private Double dailyOutput;
 
     private Double totalOutput;
@@ -11,6 +13,14 @@ public class PowerStationInfo {
     private Date updateTimes;
 
     private String title;
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
+    }
 
     public Double getDailyOutput() {
         return dailyOutput;

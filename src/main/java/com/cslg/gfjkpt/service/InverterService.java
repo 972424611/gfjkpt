@@ -40,10 +40,11 @@ public interface InverterService {
      */
     long getInverterTotal(String inverterName);
 
+
     /**
-     * 获取最新的数据
-     * @param inverterName
+     * 获取该用户拥有的逆变器
      * @return
      */
-    Inverter getInverterData(String inverterName);
+    List<String> getInverterNameList();
+
 }

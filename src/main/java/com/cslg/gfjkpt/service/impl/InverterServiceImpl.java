@@ -5,6 +5,7 @@ import com.cslg.gfjkpt.common.BeanValidator;
 import com.cslg.gfjkpt.common.RequestHolder;
 import com.cslg.gfjkpt.exception.InverterException;
 import com.cslg.gfjkpt.model.Inverter;
+import com.cslg.gfjkpt.model.User;
 import com.cslg.gfjkpt.utils.VeDateUtils;
 import com.cslg.gfjkpt.mapper.InverterMapper;
 import com.cslg.gfjkpt.service.InverterService;
@@ -129,7 +130,9 @@ public class InverterServiceImpl implements InverterService {
     }
 
     @Override
-    public Inverter getInverterData(String inverterName) {
-        return inverterMapper.selectInverterByName(inverterName);
+    public List<String> getInverterNameList() {
+        User user = RequestHolder.getCurrentUser();
+        int userId = user.getId();
+        return inverterMapper.selectInverterNameList(userId);
     }
 }

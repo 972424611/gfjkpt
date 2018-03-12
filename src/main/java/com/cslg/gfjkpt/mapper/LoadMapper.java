@@ -25,10 +25,8 @@ public interface LoadMapper {
     List<Load> selectLoadByDate(@Param("loadName") String loadName, @Param("date") String date);
 
     /**
-     * 通过月 年, 获取负荷能耗
-     * @return List<Double>
-     * @param loadName
-     * @param date
+     * 获取最新的load数据
+     * @return
      */
-//    List<Double> selectLoadEnergy(String loadName, String date);
+    Load selectLoadByName(String loadName);
 }

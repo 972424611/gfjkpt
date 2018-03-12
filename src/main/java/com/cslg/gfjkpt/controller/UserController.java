@@ -31,7 +31,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/login")
-    public ResultJson userLogin(User user, HttpServletRequest request) {
+    public String userLogin(User user, HttpServletRequest request) {
         String errorMsg = "";
         if(StringUtils.isBlank(user.getUsername())) {
             errorMsg = "用户名不能为空";
@@ -40,12 +40,18 @@ public class UserController {
         }else {
             try {
                 userService.verifyUser(user, request);
-                return ResultJson.success();
+                if("admin".equals(user.getUsername())) {
+                    return new ResultJson().returnJsonp("admin", request);
+                }
+                return new ResultJson().returnJsonp("", request);
+               // return ResultJson.success();
             } catch (UserException e) {
-                return ResultJson.fail(e.getMessage());
+               // return ResultJson.fail(e.getMessage());
+                return new ResultJson().returnJsonp(null);
             }
         }
-        return ResultJson.fail(errorMsg);
+        //return ResultJson.fail(errorMsg);
+        return new ResultJson().returnJsonp(null);
     }
 
     @ResponseBody

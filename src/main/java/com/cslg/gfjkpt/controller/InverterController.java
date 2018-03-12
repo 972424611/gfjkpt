@@ -23,24 +23,34 @@ public class InverterController {
     private InverterService inverterService;
 
     @ResponseBody
-    @RequestMapping(value = "/getSum", method = RequestMethod.GET)
-    public ResultJson getInverterSum(@RequestParam("name") String name) {
+    @RequestMapping(value = "/getNames")
+    public String getInverterNames() {
+        List<String> inverterNameList = inverterService.getInverterNameList();
+        return new ResultJson().returnJsonp(inverterNameList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getSum")
+    public String getInverterSum(@RequestParam("name") String name) {
         long sum = inverterService.getInverterTotal(name);
-        return ResultJson.success(sum);
+        return new ResultJson().returnJsonp(sum);
+        //return ResultJson.success(sum);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResultJson getInverterData(@RequestParam("name") String name, PageQuery pageQuery) {
+    @RequestMapping(value = "/list")
+    public String getInverterData(@RequestParam("name") String name, PageQuery pageQuery) {
         List<Inverter> inverters = inverterService.getInverterData(name, pageQuery);
-        return ResultJson.success(inverters);
+        return new ResultJson().returnJsonp(inverters);
+        //return ResultJson.success(inverters);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getPower", method = RequestMethod.GET)
-    public ResultJson getInverterPower(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
-                                       @RequestParam("detailDate") String detailDate) {
+    @RequestMapping(value = "/getPower")
+    public String getInverterPower(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
+                                   @RequestParam("detailDate") String detailDate) {
         TreeMap<String, Double> resultJsonMap = inverterService.getInverterPower(name, dateType, detailDate);
-        return ResultJson.success(resultJsonMap);
+        return new ResultJson().returnJsonp(resultJsonMap);
+        //return ResultJson.success(resultJsonMap);
     }
 }

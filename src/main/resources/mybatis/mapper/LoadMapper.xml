@@ -14,4 +14,8 @@
     <!--<select id="selectLoadEnergy" resultType="java.lang.Double">-->
         <!--SELECT * FROM tb_load WHERE  load_name = #{loadName} AND times LIKE #{date}-->
     <!--</select>-->
+
+    <select id="selectLoadByName" resultType="com.cslg.gfjkpt.model.Load">
+        SELECT * FROM tb_load WHERE id = (SELECT MAX(id) FROM tb_load WHERE load_name = #{loadName})
+    </select>
 </mapper>

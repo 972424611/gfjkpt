@@ -17,4 +17,5 @@ public interface UserService {
      * @param param UserParam
      */
     void saveUser(UserParam param);
+
 }

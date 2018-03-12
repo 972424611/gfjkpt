@@ -15,6 +15,26 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/*"/>
+			<mvc:mapping path="/inverter/*"/>
+			<mvc:mapping path="/load/*"/>
+			<bean class="com.cslg.gfjkpt.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<mvc:interceptors>
+		<bean class="com.cslg.gfjkpt.interceptor.HttpInterceptor"/>
+	</mvc:interceptors>
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/*"/>
+			<bean class="com.cslg.gfjkpt.interceptor.PermitInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<!-- 静态资源处理 -->
 	<mvc:default-servlet-handler/>
 

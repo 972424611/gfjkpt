@@ -12,7 +12,7 @@ public class UserParam {
     private String username;
 
     @NotBlank(message = "密码不能为空")
-    @Length(min = 6, max = 12, message = "用户名长度须在6-12个字符")
+    @Length(min = 4, max = 12, message = "密码长度须在4-12个字符")
     private String password;
 
     private String comment;
