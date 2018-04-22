@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="socket:war">
+    <output-path>$PROJECT_DIR$/../socket/target</output-path>
+    <root id="archive" name="socket.war">
+      <element id="artifact" artifact-name="socket:war exploded" />
+    </root>
+  </artifact>
+</component>

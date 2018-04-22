@@ -1,7 +1,9 @@
 package com.cslg.gfjkpt.controller;
 
+import com.cslg.gfjkpt.beans.InverterChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
-import com.cslg.gfjkpt.model.Inverter;
+import com.cslg.gfjkpt.dto.InverterChartDto;
+import com.cslg.gfjkpt.dto.InverterDto;
 import com.cslg.gfjkpt.common.ResultJson;
 import com.cslg.gfjkpt.service.InverterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.TreeMap;
 
 /**
  * 逆变器Controller
@@ -19,38 +20,31 @@ import java.util.TreeMap;
 @RequestMapping("/inverter")
 public class InverterController {
 
+    private final InverterService inverterService;
+
     @Autowired
-    private InverterService inverterService;
+    public InverterController(InverterService inverterService) {
+        this.inverterService = inverterService;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/getNames")
-    public String getInverterNames() {
+    public String getNames() {
         List<String> inverterNameList = inverterService.getInverterNameList();
         return new ResultJson().returnJsonp(inverterNameList);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getSum")
-    public String getInverterSum(@RequestParam("name") String name) {
-        long sum = inverterService.getInverterTotal(name);
-        return new ResultJson().returnJsonp(sum);
-        //return ResultJson.success(sum);
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/list")
-    public String getInverterData(@RequestParam("name") String name, PageQuery pageQuery) {
-        List<Inverter> inverters = inverterService.getInverterData(name, pageQuery);
-        return new ResultJson().returnJsonp(inverters);
-        //return ResultJson.success(inverters);
+    public ResultJson list(@RequestParam("name") String name, PageQuery pageQuery) {
+        InverterDto inverterDto = inverterService.getInverterData(name, pageQuery);
+        return ResultJson.success(inverterDto);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getPower")
-    public String getInverterPower(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
-                                   @RequestParam("detailDate") String detailDate) {
-        TreeMap<String, Double> resultJsonMap = inverterService.getInverterPower(name, dateType, detailDate);
-        return new ResultJson().returnJsonp(resultJsonMap);
-        //return ResultJson.success(resultJsonMap);
+    @RequestMapping(value = "/chart")
+    public ResultJson chart(InverterChartParam inverterChartParam) {
+        List<InverterChartDto> inverterChartDtoList = inverterService.getInverterChart(inverterChartParam);
+        return ResultJson.success(inverterChartDtoList);
     }
 }

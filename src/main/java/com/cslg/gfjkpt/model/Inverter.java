@@ -1,50 +1,49 @@
 package com.cslg.gfjkpt.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Date;
 
 /**
  * @author Twilight
  */
 public class Inverter {
+
     private Integer id;
 
-    @JsonProperty("inverter_name")
+    private String local;
+
     private String inverterName;
 
-    @JsonProperty("times")
     private Date times;
 
-    @JsonProperty("daily_output")
     private Double dailyOutput;
 
-    @JsonProperty("total_output")
     private Double totalOutput;
 
-    @JsonProperty("a_phase_current")
     private Double aPhaseCurrent;
 
-    @JsonProperty("a_phase_voltage")
     private Double aPhaseVoltage;
 
-    @JsonProperty("b_phase_current")
     private Double bPhaseCurrent;
 
-    @JsonProperty("b_phase_voltage")
     private Double bPhaseVoltage;
 
-    @JsonProperty("c_phase_current")
     private Double cPhaseCurrent;
 
-    @JsonProperty("c_phase_voltage")
     private Double cPhaseVoltage;
 
-    @JsonProperty("total_active_power")
     private Double totalActivePower;
 
-    @JsonProperty("tans_temp")
-    private Double tansTemp;
+    private Double tansTemp1;
+
+    private Double tansTemp2;
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
     public Integer getId() {
         return id;
@@ -142,30 +141,19 @@ public class Inverter {
         this.totalActivePower = totalActivePower;
     }
 
-    public Double getTansTemp() {
-        return tansTemp;
+    public Double getTansTemp1() {
+        return tansTemp1;
     }
 
-    public void setTansTemp(Double tansTemp) {
-        this.tansTemp = tansTemp;
+    public void setTansTemp1(Double tansTemp1) {
+        this.tansTemp1 = tansTemp1;
     }
 
-    @Override
-    public String toString() {
-        return "Inverter{" +
-                "id=" + id +
-                ", inverterName='" + inverterName + '\'' +
-                ", times=" + times +
-                ", dailyOutput=" + dailyOutput +
-                ", totalOutput=" + totalOutput +
-                ", aPhaseCurrent=" + aPhaseCurrent +
-                ", aPhaseVoltage=" + aPhaseVoltage +
-                ", bPhaseCurrent=" + bPhaseCurrent +
-                ", bPhaseVoltage=" + bPhaseVoltage +
-                ", cPhaseCurrent=" + cPhaseCurrent +
-                ", cPhaseVoltage=" + cPhaseVoltage +
-                ", totalActivePower=" + totalActivePower +
-                ", tansTemp=" + tansTemp +
-                '}';
+    public Double getTansTemp2() {
+        return tansTemp2;
+    }
+
+    public void setTansTemp2(Double tansTemp2) {
+        this.tansTemp2 = tansTemp2;
     }
 }

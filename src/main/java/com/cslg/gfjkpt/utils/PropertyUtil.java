@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -17,11 +19,13 @@ public class PropertyUtil {
 
     private static Properties properties;
 
+    private static Map<String, Object> propertyMap;
+
     static {
         loadProps();
     }
 
-    synchronized static private void loadProps() {
+    private static synchronized void loadProps() {
         properties = new Properties();
         InputStream in = null;
         try {
@@ -41,6 +45,18 @@ public class PropertyUtil {
                 logger.error("resource.properties文件流关闭出现异常");
             }
         }
+    }
+
+    public static Map getPropertyMap() {
+        if(properties == null) {
+            loadProps();
+        }
+        Enumeration en = properties.keys();
+        while(en.hasMoreElements()) {
+            String key = (String) en.nextElement();
+            propertyMap.put(key, properties.getProperty(key));
+        }
+        return propertyMap;
     }
 
     public static String getProperty(String key) {

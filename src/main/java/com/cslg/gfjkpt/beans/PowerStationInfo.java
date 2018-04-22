@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class PowerStationInfo {
 
-    private int UserId;
+    private int userId;
 
     private Double dailyOutput;
 
@@ -15,11 +15,11 @@ public class PowerStationInfo {
     private String title;
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        userId = userId;
     }
 
     public Double getDailyOutput() {

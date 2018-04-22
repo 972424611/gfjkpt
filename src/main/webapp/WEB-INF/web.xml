@@ -10,11 +10,6 @@
     <param-value>classpath:spring/applicationContext-*.xml</param-value>
   </context-param>
 
-  <!-- 可以处理AJAX的PUT请求 -->
-  <filter>
-    <filter-name>HttpPutFormContentFilter</filter-name>
-    <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
-  </filter>
   <!-- 字符编码处理 -->
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
@@ -32,33 +27,16 @@
       <param-value>true</param-value>
     </init-param>
   </filter>
-  <filter>
-    <filter-name>HiddenHttpMethodFilter</filter-name>
-    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-  </filter>
+
 
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>HiddenHttpMethodFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>HttpPutFormContentFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-
-  <!--<servlet>-->
-    <!--<servlet-name>socketServer</servlet-name>-->
-    <!--<servlet-class>com.cslg.gfjkpt.socket.SocketServer</servlet-class>-->
-    <!--<load-on-startup>2</load-on-startup>-->
-  <!--</servlet>-->
 
   <servlet>
     <servlet-name>springDispatcherServlet</servlet-name>
@@ -75,10 +53,5 @@
     <servlet-name>springDispatcherServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>socketServer</servlet-name>-->
-    <!--<url-pattern>/socket</url-pattern>-->
-  <!--</servlet-mapping>-->
 
 </web-app>
