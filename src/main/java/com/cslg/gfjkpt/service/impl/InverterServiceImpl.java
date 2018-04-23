@@ -129,7 +129,8 @@ public class InverterServiceImpl implements InverterService {
                 inverterChartDto.setTotalActivePower(Double.valueOf(df.format(powerTotal / sum)));
                 inverterChartDto.setTansTemp1(Double.valueOf(df.format(tansTemp1Total / sum)));
                 inverterChartDto.setTansTemp2(Double.valueOf(df.format(tansTemp2Total / sum)));
-                inverterChartDto.setTimes(time);
+                time = time.substring(time.length() - 2);
+                inverterChartDto.setTimes(Integer.valueOf(time).toString());
                 inverterChartDtoList.add(inverterChartDto);
             }
         }

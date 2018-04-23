@@ -1,0 +1,29 @@
+.section-right{
+    display: inline-block;
+    vertical-align: top;
+    width: 89%;
+    height: auto;
+    min-width: 1139px;
+    margin-left: 11%;
+}
+.section-right-left{
+    display: inline-block;
+    vertical-align: top;
+    /*background-color: yellow;*/
+    width: 40%;
+}
+.section-right-right{
+    display: inline-block;
+    vertical-align: top;
+    /*background-color: #2aabd2;*/
+    width: 58%;
+    float: right;
+}
+.footer{
+    width: 100%;
+    height: auto;
+}
+.footer-wrap{
+    width: 100%;
+    height: auto;
+}
