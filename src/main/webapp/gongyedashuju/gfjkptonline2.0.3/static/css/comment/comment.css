@@ -1,4 +1,7 @@
 /*静态页面公用的样式*/
+html{
+    overflow-y: scroll;
+}
 *{
     margin: 0;
     padding: 0;

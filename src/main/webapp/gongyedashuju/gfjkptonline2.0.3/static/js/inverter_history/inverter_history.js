@@ -33,7 +33,7 @@ var $table_body = $('#table-body');
 $.ajax({
     type : 'post',
     dataType : 'json',
-    url : 'http://localhost:8080/inverter/list?pageNo=1&pageSize=10&name=inverter1',
+    url : 'http://39.108.5.210:80/gfjkpt/inverter/list?pageNo=1&pageSize=10&name=inverter1',
     success : function (data) {
         $table_body.html('');
         var inverterList = data.data.inverterList;
@@ -51,7 +51,7 @@ $.ajax({
                 ,jump: function (obj) {
                     $.ajax({
                         type : 'post',
-                        url : 'http://localhost:8080/inverter/list?name=inverter1',
+                        url : 'http://39.108.5.210:80/gfjkpt/inverter/list?name=inverter1',
                         dataType : 'json',
                         data : { pageNo : obj.curr, pageSize : obj.limit},
                         success : function (data2) {
@@ -76,8 +76,7 @@ $.ajax({
 
 function constructTr(list) {
     $('#table-body').append('<tr>\n' +
-        '                                            <td>' + list.id + '</td>\n' +
-        '                                            <td>' + list.times + '</td>\n' +
+        '                                            <td>' + fmtDate(list.times) + '</td>\n' +
         '                                            <td>' + list.dailyOutput + '</td>\n' +
         '                                            <td>' + list.totalOutput + ' </td>\n' +
         '                                            <td>' + list.aPhaseCurrent + '</td>\n' +
@@ -92,4 +91,11 @@ function constructTr(list) {
         '                                        </tr>');
 }
 
+function fmtDate(obj){
+    var date =  new Date(obj);
+    var y = 1900+date.getYear();
+    var m = "0"+(date.getMonth()+1);
+    var d = "0"+date.getDate();
+    return y+"-"+m.substring(m.length-2,m.length)+"-"+d.substring(d.length-2,d.length);
+}
 /*历史数据表格结束*/

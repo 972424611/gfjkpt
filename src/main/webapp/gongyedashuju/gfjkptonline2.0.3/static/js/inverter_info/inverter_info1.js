@@ -1,6 +1,3 @@
-
-
-
 /*树形菜单开始*/
 var setting = {
     data: {
@@ -47,18 +44,19 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {//shown.bs.tab为tab�
     if(activeTab === '#thisDay'){
         nowDay = getNowFormatDate(new Date());
         $day_input.val(getNowFormatDate(nowDay));
-        toChart(nowDay,'day');
+        toDayChart(nowDay);
     }else if(activeTab === "#thisMonth"){
         nowDay = getNowFormatDate(new Date());
         var month = nowDay.substring(0,7);
-        toChart(month,'month');
+        toMonthChart(month);
     }else if(activeTab === "#thisQuarter"){
         nowDay = getNowFormatDate(new Date());
         loadChart(thisQuarter,optionQuarter);
     }else if(activeTab === "#thisYear"){
         nowDay = getNowFormatDate(new Date());
         var year = nowDay.substring(0,4);
-        toChart(year,'year');
+        console.log('year',year)
+        toYearChart(year);
     }else if(activeTab === "#thisCustom"){
         nowDay = getNowFormatDate(new Date());
         loadChart(thisCustom,optionCustom);
@@ -224,12 +222,7 @@ layui.use('laydate', function(){
     var laydate = layui.laydate;
     laydate.render({
         elem: '#day-input',
-        type : 'date',
-        done: function(value){
-            console.log(value); //得到日期生成的值，如：2017-08-18
-            nowDay = value;
-            toDayChart(nowDay);
-        }
+        type : 'date'
     });
     laydate.render({
         elem: '#custom-input-left',
@@ -258,7 +251,7 @@ var date = new Date();
 var nowDay = getNowFormatDate(date);
 var year = parseInt(nowDay.substring(0,4));
 
-toChart(nowDay,'day');//进入页面默认加载当前天的数据
+toDayChart(nowDay);//进入页面默认加载当前天的数据
 
 $day_input.val(nowDay);
 
@@ -290,85 +283,80 @@ $next_year.on('click',function () {
 function previousDay() {//上一天
     nowDay = addDate(nowDay,-1);
     $day_input.val(nowDay);
-    toChart(nowDay,'day');
+    toDayChart(nowDay);
 }
 
 function nextDay() {//下一天
     nowDay = addDate(nowDay,1);
     $day_input.val(nowDay);
-    toChart(nowDay,'day');
+    toDayChart(nowDay);
 }
 
 function previousMonth() {//上一月
     nowDay = getPreMonth(getNowFormatDate(nowDay));
     var month = nowDay.substring(0,7);
-    toChart(month,'month');
+    toMonthChart(month);
+
 }
 
 function nowMonth() {//本月
     nowDay = getNowFormatDate(new Date());
     var month = nowDay.substring(0,7);
-    toChart(month,'month');
+    toMonthChart(month);
 }
 
 function nextMonth() {//下一月
     nowDay = getNextMonth((getNowFormatDate(nowDay)));
     var month = nowDay.substring(0,7);
-    toChart(month,'month');
+    toMonthChart(month);
 }
 
+function previousQaurter() {
+    
+}
+
+function nowQuarter() {
+    
+}
+
+function nextQuarter() {
+    
+}
 
 function previousYear() {
     year = parseInt(year);
     year --;
     console.log(year);
-    toChart(year,'year');
+    toYearChart(year);
 }
 
 function nowYear() {
     var nowDay = getNowFormatDate(new Date());
     year = nowDay.substring(0,4);
-    toChart(year,'year');
+    toYearChart(year);
 }
 
 function nextYear() {
     year = parseInt(year);
     year ++;
-    toChart(year,'year');
+    toYearChart(year);
 }
 
-function toChart(date,dateType) {
+function toDayChart(nowDay) {//加载对应日期的表格
     $.ajax({
         type : 'get',
-        url : 'http://39.108.5.210:80/gfjkpt/inverter/chart?name=inverter1&type=' + dateType + '&date=' + date,
+        url : 'http://39.108.5.210:80/gfjkpt/inverter/chart?name=inverter1&type=day&date=' + nowDay,
         dataType : 'json',
         success : function (jsonResult) {
+
+            /*ajax请求成功时的操作--开始*/
             var totalActivePower = pushData(jsonResult,'totalActivePower');
             var tansTemp1 = pushData(jsonResult,'tansTemp1');
             var tansTemp2 = pushData(jsonResult,'tansTemp2');
             var times = pushData(jsonResult,'times');
-            var titleDateLeft;
-            var titleDateRight;
-            var chartTitle = '';
-            if(dateType === 'day'){
-                titleDateLeft = getNowChineseDate(date);
-                titleDateRight = getNowChineseDate(addDate(date,-1));
-                chartTitle = '长沙理工大学' + titleDateLeft + '至' + titleDateRight + '用电监测';
-            } else if(dateType === 'month'){
-                titleDateLeft = getNowChineseDate(date);
-                titleDateRight = getNowChineseDate(getNextMonth(date));
-                chartTitle = '长沙理工大学' + titleDateLeft + '至' + titleDateRight + '用电监测';
-            } else if(dateType === 'quarter'){
-
-            } else if(dateType === 'year'){
-                chartTitle = '长沙理工大学' + getNowChineseDate(date) + '用电监测';
-            }
-            temperListen(tansTemp1);
-            temperListen(tansTemp2);
-            outputListen(totalActivePower);
-            var option = {
+            var optionDay = {
                 title : {
-                    text : chartTitle,
+                    text : '长沙理工大学2018年4月14日-2018年4月15日用电监测',
                     left : 'center'
                 },
                 tooltip : {
@@ -396,22 +384,25 @@ function toChart(date,dateType) {
                 },
                 xAxis: {
                     type: 'category',
-                    data: times
+                    data: times,
+                    axisLabel : {
+                        interval : 0
+                    }
                 },
                 yAxis: [
                     {
                         name : '电（kWh）',
-                        type: 'value'
-                        // max : 360,
-                        // min : 0,
-                        // interval : 40
+                        type: 'value',
+                        max : 360,
+                        min : 0,
+                        interval : 40
                     },
                     {
                         name : '温度（℃）',
-                        type: 'value'
-                        // max : 100,
-                        // min : -10,
-                        // interval : 10
+                        type: 'value',
+                        max : 100,
+                        min : -10,
+                        interval : 10
                     }
                 ],
                 series: [
@@ -456,20 +447,344 @@ function toChart(date,dateType) {
                     }
                 ]
             };
-            if(dateType === 'day'){
-                loadChart(thisDay,option);
-            } else if(dateType === 'month'){
-                loadChart(thisMonth,option);
-            } else if(dateType === 'year'){
-                loadChart(thisYear,option);
-            }
-
+            loadChart(thisDay,optionDay);
+            /*ajax请求成功时的操作--结束*/
         },
         error : function (err) {
             console.log(err);
         }
 
     })
+
+}
+
+function toMonthChart(now) {
+    $.ajax({
+        type : 'get',
+        url : 'http://39.108.5.210:80/gfjkpt/inverter/chart?name=inverter1&type=month&date=' + now,
+        dataType : 'json',
+        success : function (jsonResult) {
+            var totalActivePower = pushData(jsonResult,'totalActivePower');
+            var tansTemp1 = pushData(jsonResult,'tansTemp1');
+            var tansTemp2 = pushData(jsonResult,'tansTemp2');
+            var times = pushData(jsonResult,'times');
+            var optionMonth = {
+                title : {
+                    text : '长沙理工大学2018年4月14日-2018年4月15日用电监测',
+                    left : 'center'
+                },
+                tooltip : {
+                    show : true,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    }
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                legend : {
+                    data : ['长沙理工大学','模块一温度','模块二温度'],
+                    left : 20,
+                    bottom : 0
+                },
+                xAxis: {
+                    type: 'category',
+                    data: times
+                },
+                yAxis: [
+                    {
+                        name : '电（kWh）',
+                        type: 'value',
+                        max : 360,
+                        min : 0,
+                        interval : 40
+                    },
+                    {
+                        name : '温度（℃）',
+                        type: 'value',
+                        max : 100,
+                        min : -10,
+                        interval : 10
+                    }
+                ],
+                series: [
+                    {
+                        name : '长沙理工大学',
+                        data: totalActivePower,
+                        type: 'bar',
+                        smooth: true,
+                        yAxisIndex : 0,
+                        markPoint : {
+                            data : [ {
+                                type : 'max',
+                                name : 'max'
+                            }, {
+                                type : 'min',
+                                name : 'min'
+                            } ]
+                        },
+                        itemStyle : {
+                            color : '#2F4554'
+                        }
+                    },
+                    {
+                        name : '模块一温度',
+                        data: tansTemp1,
+                        type: 'line',
+                        smooth: true,
+                        yAxisIndex : 1,//规定使用的坐标
+                        itemStyle : {
+                            color : '#C23531'
+                        }
+                    },
+                    {
+                        name : '模块二温度',
+                        data: tansTemp2,
+                        type: 'line',
+                        smooth: true,
+                        yAxisIndex : 1,
+                        itemStyle : {
+                            color : '#008000'
+                        }
+                    }
+                ]
+            };
+            loadChart(thisMonth,optionMonth);
+        },
+        error : function (err) {
+            console.log(err);
+        }
+
+    })
+
+}
+
+function toQuarterChart(now) {
+    $.ajax({
+        type : 'get',
+        url : 'http://39.108.5.210:80/gfjkpt/inverter/chart?name=inverter1&type=quarter&date=' + now,
+        dataType : 'json',
+        success : function (jsonResult) {
+            var totalActivePower = pushData(jsonResult,'totalActivePower');
+            var tansTemp1 = pushData(jsonResult,'tansTemp1');
+            var tansTemp2 = pushData(jsonResult,'tansTemp2');
+            var times = pushData(jsonResult,'times');
+            var optionYear = {
+                title : {
+                    text : '长沙理工大学2018年4月14日-2018年4月15日用电监测',
+                    left : 'center'
+                },
+                tooltip : {
+                    show : true,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    }
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                legend : {
+                    data : ['长沙理工大学','模块一温度','模块二温度'],
+                    left : 20,
+                    bottom : 0
+                },
+                xAxis: {
+                    type: 'category',
+                    data: times
+                },
+                yAxis: [
+                    {
+                        name : '电（kWh）',
+                        type: 'value',
+                        max : 360,
+                        min : 0,
+                        interval : 40
+                    },
+                    {
+                        name : '温度（℃）',
+                        type: 'value',
+                        max : 100,
+                        min : -10,
+                        interval : 10
+                    }
+                ],
+                series: [
+                    {
+                        name : '长沙理工大学',
+                        data: totalActivePower,
+                        type: 'bar',
+                        smooth: true,
+                        yAxisIndex : 0,
+                        markPoint : {
+                            data : [ {
+                                type : 'max',
+                                name : 'max'
+                            }, {
+                                type : 'min',
+                                name : 'min'
+                            } ]
+                        },
+                        itemStyle : {
+                            color : '#2F4554'
+                        }
+                    },
+                    {
+                        name : '模块一温度',
+                        data: tansTemp1,
+                        type: 'line',
+                        smooth: true,
+                        yAxisIndex : 1,//规定使用的坐标
+                        itemStyle : {
+                            color : '#C23531'
+                        }
+                    },
+                    {
+                        name : '模块二温度',
+                        data: tansTemp2,
+                        type: 'line',
+                        smooth: true,
+                        yAxisIndex : 1,
+                        itemStyle : {
+                            color : '#008000'
+                        }
+                    }
+                ]
+            };
+            loadChart(thisYear,optionYear);
+        },
+        error : function (err) {
+            console.log(err);
+        }
+
+    })
+}
+
+function toYearChart(now) {
+    $.ajax({
+        type : 'get',
+        url : 'http://39.108.5.210:80/gfjkpt/inverter/chart?name=inverter1&type=year&date=' + now,
+        dataType : 'json',
+        success : function (jsonResult) {
+            var totalActivePower = pushData(jsonResult,'totalActivePower');
+            var tansTemp1 = pushData(jsonResult,'tansTemp1');
+            var tansTemp2 = pushData(jsonResult,'tansTemp2');
+            var times = pushData(jsonResult,'times');
+            var optionYear = {
+                title : {
+                    text : '长沙理工大学2018年4月14日-2018年4月15日用电监测',
+                    left : 'center'
+                },
+                tooltip : {
+                    show : true,
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    }
+                },
+                toolbox: {
+                    feature: {
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                legend : {
+                    data : ['长沙理工大学','模块一温度','模块二温度'],
+                    left : 20,
+                    bottom : 0
+                },
+                xAxis: {
+                    type: 'category',
+                    data: times
+                },
+                yAxis: [
+                    {
+                        name : '电（kWh）',
+                        type: 'value',
+                        max : 360,
+                        min : 0,
+                        interval : 40
+                    },
+                    {
+                        name : '温度（℃）',
+                        type: 'value',
+                        max : 100,
+                        min : -10,
+                        interval : 10
+                    }
+                ],
+                series: [
+                    {
+                        name : '长沙理工大学',
+                        data: totalActivePower,
+                        type: 'bar',
+                        smooth: true,
+                        yAxisIndex : 0,
+                        markPoint : {
+                            data : [ {
+                                type : 'max',
+                                name : 'max'
+                            }, {
+                                type : 'min',
+                                name : 'min'
+                            } ]
+                        },
+                        itemStyle : {
+                            color : '#2F4554'
+                        }
+                    },
+                    {
+                        name : '模块一温度',
+                        data: tansTemp1,
+                        type: 'line',
+                        smooth: true,
+                        yAxisIndex : 1,//规定使用的坐标
+                        itemStyle : {
+                            color : '#C23531'
+                        }
+                    },
+                    {
+                        name : '模块二温度',
+                        data: tansTemp2,
+                        type: 'line',
+                        smooth: true,
+                        yAxisIndex : 1,
+                        itemStyle : {
+                            color : '#008000'
+                        }
+                    }
+                ]
+            };
+            loadChart(thisYear,optionYear);
+        },
+        error : function (err) {
+            console.log(err);
+        }
+
+    })
+
 }
 
 function getNowFormatDate(date) {//格式化日期的函数，格式为yyyy-mm-dd
@@ -486,19 +801,6 @@ function getNowFormatDate(date) {//格式化日期的函数，格式为yyyy-mm-d
     }
     var currentdate = year + seperator1 + month + seperator1 + strDate;
     return currentdate;
-}
-
-function getNowChineseDate(date) {//格式化日期的函数，格式为yyyy-mm-dd
-    var dateArr = date.split('-');
-    var tmp;
-    if(date.length === 10){
-        tmp = dateArr[0] + '年' + dateArr[1] + '月' + dateArr[2] + '日';
-    } else if(date.length === 7){
-        tmp = dateArr[0] + '年' + dateArr[1] + '月';
-    } else if(date.length === 4){
-        tmp = dateArr[0];
-    }
-    return tmp;
 }
 
 function addDate(date,days){//date : 当前日期，days : 当前要增加的天数
@@ -578,50 +880,3 @@ function pushData(data,dataName) {//把json数据中的每一项解析并拼装�
 }
 /*日期选择模块结束*/
 
-/*报警监听开始*/
-var $temp_warning = $('#temp-warning');
-var $temp_success = $('#temp-success');
-var $power_warning = $('#power-warning');
-var $power_success  = $('#power-success');
-function temperListen(t) {
-    var flag = 1; //0表示异常，1表示正常
-    var maxTemperature = 80;
-    var minTemperature = -10;
-    for(var i = 0;i < t.length; i++){
-        if(maxTemperature < t[i] || minTemperature > t[i]){
-            console.log('温度异常');
-            flag = 0;
-            break;
-        }
-    }
-    if(flag === 0){
-        $temp_warning.css('display','block');
-        $temp_success.css('display','none');
-    } else {
-        $temp_warning.css('display','none');
-        $temp_success.css('display','block');
-    }
-}
-
-function outputListen(o) {
-    var output = 0;
-    var flag = 1;
-    for(var i = 0;i < o.length; i++){
-        output += o[i];
-    }
-    if(output === 0){
-        flag = 0;
-        console.log('功率异常');
-    } else {
-        flag = 1;
-    }
-    if(flag === 0){
-        $power_warning.css('display','block');
-        $power_success.css('display','none');
-    } else {
-        $power_warning.css('display','none');
-        $power_success.css('display','block');
-    }
-}
-
-/*报警监听结束*/
