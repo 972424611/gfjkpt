@@ -2,21 +2,13 @@ package com.cslg.gfjkpt.dto;
 
 public class InverterChartDto {
 
-    private double totalActivePower;
+    private double dailyOutput;
 
     private double tansTemp1;
 
     private double tansTemp2;
 
     private String times;
-
-    public double getTotalActivePower() {
-        return totalActivePower;
-    }
-
-    public void setTotalActivePower(double totalActivePower) {
-        this.totalActivePower = totalActivePower;
-    }
 
     public double getTansTemp1() {
         return tansTemp1;
@@ -42,5 +34,11 @@ public class InverterChartDto {
         this.tansTemp2 = tansTemp2;
     }
 
+    public double getDailyOutput() {
+        return dailyOutput;
+    }
 
+    public void setDailyOutput(double dailyOutput) {
+        this.dailyOutput = dailyOutput;
+    }
 }

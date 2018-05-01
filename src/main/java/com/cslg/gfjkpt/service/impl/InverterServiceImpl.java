@@ -50,15 +50,15 @@ public class InverterServiceImpl implements InverterService {
             return;
         }
         InverterChartDto inverterChartDto = new InverterChartDto();
-        double powerTotal = 0;
+        double dailyOutputTotal = 0;
         double tansTemp1Total = 0;
         double tansTemp2Total = 0;
         for(InverterChartDto i : list) {
-            powerTotal += i.getTotalActivePower();
+            dailyOutputTotal += i.getDailyOutput();
             tansTemp1Total += i.getTansTemp1();
             tansTemp2Total += i.getTansTemp2();
         }
-        inverterChartDto.setTotalActivePower(powerTotal / list.size());
+        inverterChartDto.setDailyOutput(dailyOutputTotal / list.size());
         inverterChartDto.setTansTemp1(tansTemp1Total / list.size());
         inverterChartDto.setTansTemp2(tansTemp2Total / list.size());
         inverterChartDto.setTimes(quarter);
@@ -98,7 +98,7 @@ public class InverterServiceImpl implements InverterService {
         List<Inverter> list = inverterMapper.selectInverterChart(inverterName, str);
         List<InverterChartDto> inverterChartDtoList = new ArrayList<>();
         for(int i = start; i <= end; i++) {
-            double powerTotal = 0;
+            double dailyOutputTotal = 0;
             double tansTemp1Total = 0;
             double tansTemp2Total = 0;
             int sum = 0;
@@ -115,7 +115,7 @@ public class InverterServiceImpl implements InverterService {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String strDate = dateFormat.format(inverter.getTimes());
                 if(strDate.contains(time)) {
-                    powerTotal += inverter.getTotalActivePower();
+                    dailyOutputTotal += inverter.getDailyOutput();
                     tansTemp1Total += inverter.getTansTemp1();
                     tansTemp2Total += inverter.getTansTemp2();
                     sum++;
@@ -126,7 +126,7 @@ public class InverterServiceImpl implements InverterService {
             if(flag) {
                 DecimalFormat df = new DecimalFormat("#.0");
                 InverterChartDto inverterChartDto = new InverterChartDto();
-                inverterChartDto.setTotalActivePower(Double.valueOf(df.format(powerTotal / sum)));
+                inverterChartDto.setDailyOutput(Double.valueOf(df.format(dailyOutputTotal / sum)));
                 inverterChartDto.setTansTemp1(Double.valueOf(df.format(tansTemp1Total / sum)));
                 inverterChartDto.setTansTemp2(Double.valueOf(df.format(tansTemp2Total / sum)));
                 time = time.substring(time.length() - 2);
