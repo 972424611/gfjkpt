@@ -2,8 +2,9 @@ package com.cslg.gfjkpt.service;
 
 import com.cslg.gfjkpt.beans.InverterChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
-import com.cslg.gfjkpt.dto.InverterChartDto;
-import com.cslg.gfjkpt.dto.InverterDto;
+import com.cslg.gfjkpt.vo.InverterChartVo;
+import com.cslg.gfjkpt.vo.InverterIconVo;
+import com.cslg.gfjkpt.vo.InverterVo;
 
 import java.util.List;
 
@@ -13,10 +14,12 @@ import java.util.List;
  */
 public interface InverterService {
 
-    InverterDto getInverterData(String inverterName, PageQuery pageQuery);
+    InverterVo getInverterData(String inverterName, PageQuery pageQuery);
 
-    List<InverterChartDto> getInverterChart(InverterChartParam inverterChartParam);
+    List<InverterChartVo> getInverterChart(InverterChartParam inverterChartParam);
 
     List<String> getInverterNameList();
+
+    InverterIconVo getInverterIcon();
 
 }

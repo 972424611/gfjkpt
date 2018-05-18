@@ -26,4 +26,6 @@ public interface InverterMapper {
     List<Inverter> selectInverterChart(@Param("inverterName") String inverterName, @Param("date") String date);
 
     List<String> selectInverterNameList(int userId);
+
+    Inverter selectInverterNewest();
 }

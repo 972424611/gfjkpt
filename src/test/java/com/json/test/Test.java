@@ -5,14 +5,20 @@
 //import java.io.IOException;
 //import java.net.ServerSocket;
 //import java.net.Socket;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 //
 //public class Test {
 //
 //    private static final int PORT = 123;
 //
 //    public static void main(String[] args) {
-//        Test test = new Test();
-//        test.init();
+//        test6();
+//    }
+//
+//    public static void  test6() {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        System.out.println(simpleDateFormat.format(new Date()));
 //    }
 //
 //    public void init() {

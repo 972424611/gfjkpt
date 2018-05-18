@@ -4,6 +4,7 @@
     <data-source source="LOCAL" name="@rm-bp1p625j8640m9ug7uo.mysql.rds.aliyuncs.com" uuid="590e2dc6-648f-48b3-af37-7d046e893f40">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://rm-bp1p625j8640m9ug7uo.mysql.rds.aliyuncs.com:3306</jdbc-url>
       <driver-properties>

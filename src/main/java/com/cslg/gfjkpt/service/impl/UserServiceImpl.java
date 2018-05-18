@@ -20,8 +20,12 @@ import java.util.Date;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserMapper userMapper;
+
     @Autowired
-    private UserMapper userMapper;
+    public UserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     @Override
     public void verifyUser(User user, HttpServletRequest request) {

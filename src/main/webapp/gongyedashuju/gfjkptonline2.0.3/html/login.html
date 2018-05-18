@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/login/login.css">
+    <!--<link rel="stylesheet" href="../static/css/login/media.css" media="screen and (max-width:350px)">-->
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="header-container">
+            <img src="../static/img/login/logo.png" alt="" class="logo-pic">
+            <div class="header-title">
+                <h1>分布式光伏发电管理平台</h1>
+            </div>
+        </div>
+    </header>
+    <section class="section">
+        <div class="section-container">
+            <div class="form-container">
+                <form action="" class="login-form">
+                    <div class="form-title">
+                        请输入您的登录信息
+                    </div>
+                    <div class="form-section">
+                        <div class="input-container">
+                            <label for="username">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </label>
+                            <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+                        </div>
+                        <div class="input-container">
+                            <label for="password"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></label>
+                            <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                        </div>
+                        <div class="form-warning">
+                            <div class="alert alert-danger warning-bar" role="alert">您的用户名或密码有误</div>
+                        </div>
+                        <div class="form-button-container">
+                            <button type="button" class="btn btn-info submit">提交</button>
+                            <button type="button" class="btn btn-info rewrite">清空</button>
+                        </div>
+                    </div>
+                </form>
+            </div><!--包裹验证表单的容器-->
+        </div>
+    </section>
+    <footer class="footer"></footer>
+</div>
+</body>
+<script type="text/javascript" src="../plugin/jquery/jquery-3.3.1-min.js"></script>
+<script type="text/javascript" src="../plugin/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="../plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/login/login.js"></script>
+</html>

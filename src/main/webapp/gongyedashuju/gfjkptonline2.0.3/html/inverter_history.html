@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>逆变器历史数据</title>
+    <link rel="stylesheet" href="../plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="../plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../plugin/accordion/accordion.css">
+    <link rel="stylesheet" href="../plugin/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../static/css/comment/comment.css">
+    <link rel="stylesheet" href="../plugin/datatables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="../static/css/inverter_history/inverter_history.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header" id="header">
+            <div class="header-wrap" id="header-wrap"></div>
+        </header>
+        <section class="section" id="section">
+            <div class="section-wrap" id="section-wrap">
+                <div class="section-left" id="section-left"></div>
+                <div class="section-right" id="section-right">
+                    <ol class="breadcrumb section-right-bar">
+                        <li><a href="#">光伏发电</a></li>
+                        <li class="active">监控平台</li>
+                        <li class="active">历史数据</li>
+                    </ol>
+                    <div class="section-right-left">
+                        <ul id="myTree" class="ztree"></ul>
+                    </div>
+                    <div class="section-right-right">
+                        <i class="time-iconfont">&#xe62d;</i>
+                        <input type="text" id="myDate">
+                        <button type="button" class="btn btn-info search">查询数据</button>
+                        <button type="button" class="btn btn-info print">数据导出</button>
+                        <div class="inverter-data-container">
+                            <div class="table-container">
+                                <table class="table" id="history-table">
+                                    <thead>
+                                        <tr>
+                                            <th>最后一次更新时间</th>
+                                            <th>日发电量(kWh)</th>
+                                            <th>总发电量(kWh)</th>
+                                            <th>A相电流(A)</th>
+                                            <th>A相电压(V)</th>
+                                            <th>B相电流(A)</th>
+                                            <th>B相电压(V)</th>
+                                            <th>C相电流(A)</th>
+                                            <th>C相电压(V)</th>
+                                            <th>总有功功率(W)</th>
+                                            <th>模块1-机内散热器温度(℃)</th>
+                                            <th>模块2-机内散热器温度(℃)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-body"></tbody>
+                                </table>
+                            </div>
+                            <div id="page-nation"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer" id="footer">
+            <div class="footer-wrap" id="footer-wrap"></div>
+        </footer>
+    </div>
+    <script type="text/javascript" src="../plugin/jquery/jquery-3.3.1-min.js"></script>
+    <script type="text/javascript" src="../static/js/inverter_history/gulp.js"></script>
+    <script type="text/javascript" src="../plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../plugin/accordion/accordion.js"></script>
+    <script type="text/javascript" src="../static/js/comment/comment.js"></script>
+    <script type="text/javascript" src="../plugin/zTree_v3/js/jquery.ztree.all.js"></script>
+    <script type="text/javascript" src="../plugin/layui/layui.js"></script>
+    <script type="text/javascript" src="../plugin/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../static/js/inverter_history/inverter_history.js"></script>
+</body>
+</html>

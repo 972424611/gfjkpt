@@ -1,7 +1,11 @@
 package com.cslg.gfjkpt.service;
 
+import com.cslg.gfjkpt.beans.LoadChartParam;
+import com.cslg.gfjkpt.vo.LoadChartVo;
 import com.cslg.gfjkpt.model.Load;
+import com.cslg.gfjkpt.vo.LoadIconVo;
 
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -16,13 +20,7 @@ public interface LoadService {
      */
     void saveLoadData(Load load);
 
-    /**
-     * 获取负荷能耗, 通过日期
-     * @param name 负荷名称
-     * @param dateType 年, 月, 日
-     * @param detailDate 详细日期
-     * @return TreeMap<String, Double>
-     */
-    TreeMap<String, Double> getLoadDataByDate(String name, String dateType, String detailDate);
+    List<LoadChartVo> getLoadChart(LoadChartParam loadChartParam);
 
+    LoadIconVo getLoadIcon();
 }

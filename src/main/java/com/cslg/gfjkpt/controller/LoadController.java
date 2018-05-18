@@ -1,11 +1,15 @@
 package com.cslg.gfjkpt.controller;
 
+import com.cslg.gfjkpt.beans.LoadChartParam;
 import com.cslg.gfjkpt.common.ResultJson;
+import com.cslg.gfjkpt.vo.LoadChartVo;
 import com.cslg.gfjkpt.service.LoadService;
+import com.cslg.gfjkpt.vo.LoadIconVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -19,23 +23,17 @@ public class LoadController {
     @Autowired
     private LoadService loadService;
 
-    /*@ResponseBody
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public String getLoadByDate(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
-                                @RequestParam("detailDate") String detailDate,
-                                HttpServletRequest request) {
-        TreeMap<String, Double> resultMap = loadService.getLoadDataByDate(name, dateType, detailDate);
-        ResultJson resultJson = new ResultJson(resultMap);
-        String json = JsonUtils.objectToJson(resultJson);
-        return request.getParameter("callback") + "(" + json + ")";
-    }*/
+    @ResponseBody
+    @RequestMapping(value = "/chart")
+    public ResultJson chart(LoadChartParam loadChartParam) {
+        List<LoadChartVo> loadChartVoList = loadService.getLoadChart(loadChartParam);
+        return ResultJson.success(loadChartVoList);
+    }
 
     @ResponseBody
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public String getLoadByDate(@RequestParam("name") String name, @RequestParam("dateType") String dateType,
-                                @RequestParam("detailDate") String detailDate) {
-        TreeMap<String, Double> resultMap = loadService.getLoadDataByDate(name, dateType, detailDate);
-        //return ResultJson.success(resultMap);
-        return new ResultJson().returnJsonp(resultMap);
+    @RequestMapping("/loadIcon")
+    public  ResultJson loadIcon() {
+        LoadIconVo loadIconVo = loadService.getLoadIcon();
+        return ResultJson.success(loadIconVo);
     }
 }

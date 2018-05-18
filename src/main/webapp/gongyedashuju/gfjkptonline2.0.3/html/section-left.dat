@@ -1,0 +1,43 @@
+<div class="list-title"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>监控平台</div>
+                    <div class="list"><!--二级菜单-->
+                        <ul>
+                            <li>
+                                <p class="title"><i class="iconfont">&#xe67a;</i>光伏发电</p>
+                                <ul class='list-se'>
+                                    <p class="title"><i class="iconfont">&#xe67a;</i>光伏发电</p>
+                                    <li onclick = "toPreview(); function toPreview(){location.href='./power_preview.html';}"><p>电站预览</p></li>
+                                    <li onclick = "toInfo(); function toInfo(){location.href='./inverter_info.html';}"><p>逆变器信息</p></li>
+                                    <li onclick = "toHistory(); function toHistory(){location.href='./inverter_history.html';}"><p>历史数据</p></li>
+                                    <li onclick = "toWeather(); function toWeather(){location.href='./weather.html';}"><p>天气信息</p></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p class="title"><i class="iconfont">&#xe65c;</i>负荷监控</p>
+                                <ul class='list-se'>
+                                    <p class="title"><i class="iconfont">&#xe65c;</i>负荷监控</p>
+                                    <li onclick = "toEnergyMonitor();function toEnergyMonitor(){location.href='./energy_use_monitoring.html'}"><p>用能监测</p></li>
+                                    <li><p>能效管理</p></li>
+                                    <li><p>用能统计分析</p></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p class="title"><i class="iconfont">&#xe608;</i>设备管理</p>
+                                <ul class='list-se'>
+                                    <p class="title"><i class="iconfont">&#xe608;</i>设备管理</p>
+                                    <li><p>逆变器数据</p></li>
+                                    <li><p>储能数据</p></li>
+                                    <li><p>负荷数据</p></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p class="title"><i class="iconfont">&#xe625;</i>电能交易</p>
+                                <ul class='list-se'>
+                                    <p class="title"><i class="iconfont">&#xe625;</i>电能交易</p>
+                                    <li onclick = "toSeller(); function toSeller(){location.href='./seller.html';}"><p>电能出售</p></li>
+                                    <li onclick = "toBuyer(); function toBuyer(){location.href='./buyer.html';}"><p>电能购买</p></li>
+                                    <li><p>信用评价</p></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>

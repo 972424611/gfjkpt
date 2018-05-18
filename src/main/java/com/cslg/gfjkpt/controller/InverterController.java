@@ -2,8 +2,9 @@ package com.cslg.gfjkpt.controller;
 
 import com.cslg.gfjkpt.beans.InverterChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
-import com.cslg.gfjkpt.dto.InverterChartDto;
-import com.cslg.gfjkpt.dto.InverterDto;
+import com.cslg.gfjkpt.vo.InverterChartVo;
+import com.cslg.gfjkpt.vo.InverterIconVo;
+import com.cslg.gfjkpt.vo.InverterVo;
 import com.cslg.gfjkpt.common.ResultJson;
 import com.cslg.gfjkpt.service.InverterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +38,21 @@ public class InverterController {
     @ResponseBody
     @RequestMapping(value = "/list")
     public ResultJson list(@RequestParam("name") String name, PageQuery pageQuery) {
-        InverterDto inverterDto = inverterService.getInverterData(name, pageQuery);
-        return ResultJson.success(inverterDto);
+        InverterVo inverterVo = inverterService.getInverterData(name, pageQuery);
+        return ResultJson.success(inverterVo);
     }
 
     @ResponseBody
     @RequestMapping(value = "/chart")
     public ResultJson chart(InverterChartParam inverterChartParam) {
-        List<InverterChartDto> inverterChartDtoList = inverterService.getInverterChart(inverterChartParam);
-        return ResultJson.success(inverterChartDtoList);
+        List<InverterChartVo> inverterChartVoList = inverterService.getInverterChart(inverterChartParam);
+        return ResultJson.success(inverterChartVoList);
+    }
+
+    @ResponseBody
+    @RequestMapping("/inverterIcon")
+    public  ResultJson loadIcon() {
+        InverterIconVo inverterIconVo = inverterService.getInverterIcon();
+        return ResultJson.success(inverterIconVo);
     }
 }
