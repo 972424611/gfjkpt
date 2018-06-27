@@ -1,15 +1,16 @@
 package com.cslg.gfjkpt.service.impl;
 
-import com.cslg.gfjkpt.beans.LoadChartParam;
+import com.cslg.gfjkpt.beans.load.ChartParam;
+import com.cslg.gfjkpt.beans.load.ContrastChartParam;
 import com.cslg.gfjkpt.common.BeanValidator;
-import com.cslg.gfjkpt.common.RequestHolder;
-import com.cslg.gfjkpt.vo.LoadChartVo;
-import com.cslg.gfjkpt.mapper.InverterMapper;
-import com.cslg.gfjkpt.model.Inverter;
 import com.cslg.gfjkpt.model.Load;
 import com.cslg.gfjkpt.mapper.LoadMapper;
 import com.cslg.gfjkpt.service.LoadService;
-import com.cslg.gfjkpt.vo.LoadIconVo;
+import com.cslg.gfjkpt.vo.load.ChartVo;
+import com.cslg.gfjkpt.vo.load.ContrastChartVo;
+import com.cslg.gfjkpt.vo.load.IconVo;
+import com.cslg.gfjkpt.vo.load.PieChartVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,112 +24,185 @@ import java.util.*;
 @Service
 public class LoadServiceImpl implements LoadService {
 
-    @Autowired
-    private LoadMapper loadMapper;
+    private final LoadMapper loadMapper;
 
     @Autowired
-    private InverterMapper inverterMapper;
-
-    @Override
-    public void saveLoadData(Load load) {
-        String userName = RequestHolder.getCurrentUser().getUsername();
-        String loadName = userName + "_" + load.getLoadName();
-        load.setLoadName(loadName);
-        loadMapper.insertLoad(load);
+    public LoadServiceImpl(LoadMapper loadMapper) {
+        this.loadMapper = loadMapper;
     }
 
-    private List<LoadChartVo> dealDate(int start, int end, LoadChartParam param, String s) {
+    private List<ChartVo> dealDate(int start, int end, ChartParam param, String s) {
         String str = "%" + param.getDate() + "%";
         //TODO; 这里应该区别下用户
-        String inverterName = "inverter1";
-        List<Inverter> list = inverterMapper.selectInverterChart(inverterName, str);
-        List<LoadChartVo> loadChartVoList = new ArrayList<>();
+        String local = "长沙理工大学" + param.getLocal();
+        List<Load> loadList = loadMapper.selectLoadChart(local, str);
+        List<ChartVo> chartVoList = new ArrayList<>();
         for(int i = start; i <= end; i++) {
-            double totalActivePowerTotal = 0;
-            double tansTemp1Total = 0;
-            double tansTemp2Total = 0;
+            double activePower = 0;
+            double apparentPower = 0;
+            double current = 0;
+            double voltage = 0;
             int sum = 0;
             boolean flag = false;
             String time = "";
             if("day".equals(param.getType())) {
                 time = i >= 10 ? param.getDate() + " " + i : param.getDate() + " 0" + i;
-            } else if("month".equals(param.getType()) || "year".equals(param.getType()) || "quarter".equals(param.getType())) {
+            } else if("month".equals(param.getType())
+                    || "year".equals(param.getType())
+                    || "quarter".equals(param.getType())) {
                 time = i >= 10 ? param.getDate() + "-" + i : param.getDate() + "-0" + i;
             }
-            Iterator iterator = list.iterator();
+            Iterator iterator = loadList.iterator();
             while(iterator.hasNext()) {
-                Inverter inverter = (Inverter) iterator.next();
+                Load load = (Load) iterator.next();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String strDate = dateFormat.format(inverter.getTimes());
+                String strDate = dateFormat.format(load.getTimes());
                 if(strDate.contains(time)) {
-                    totalActivePowerTotal += inverter.getTotalActivePower();
-                    tansTemp1Total += inverter.getTansTemp1();
-                    tansTemp2Total += inverter.getTansTemp2();
-                    sum++;
-                    flag = true;
+                    if(load.getCurrent() != 0) {
+                        activePower += load.getActivePower();
+                        apparentPower += load.getApparentPower();
+                        current += load.getCurrent();
+                        voltage += load.getVoltage();
+                        sum++;
+                        flag = true;
+                    }
                     iterator.remove();
                 }
             }
             if(flag) {
                 DecimalFormat df = new DecimalFormat("#.0");
-                LoadChartVo loadChartVo = new LoadChartVo();
-                loadChartVo.setTotalActivePower(Double.valueOf(df.format(totalActivePowerTotal / sum)));
-                loadChartVo.setTansTemp1(Double.valueOf(df.format(tansTemp1Total / sum)));
-                loadChartVo.setTansTemp2(Double.valueOf(df.format(tansTemp2Total / sum)));
+                ChartVo chartVo = new ChartVo();
+                chartVo.setActivePower(Double.valueOf(df.format(activePower / sum)));
+                chartVo.setApparentPower(Double.valueOf(df.format(apparentPower / sum)));
+                chartVo.setCurrent(Double.valueOf(df.format(current / sum)));
+                chartVo.setVoltage(Double.valueOf(df.format(voltage / sum)));
                 time = time.substring(time.length() - 2);
-                loadChartVo.setTimes(Integer.valueOf(time).toString() + s);
-                loadChartVoList.add(loadChartVo);
+                chartVo.setTimes(Integer.valueOf(time).toString() + s);
+                chartVoList.add(chartVo);
             }
         }
-        return loadChartVoList;
+        return chartVoList;
     }
 
     @Override
-    public List<LoadChartVo> getLoadChart(LoadChartParam loadChartParam) {
-        BeanValidator.check(loadChartParam);
-        if("day".equals(loadChartParam.getType())) {
-            return dealDate(6, 19, loadChartParam, ":00");
-        } else if("month".equals(loadChartParam.getType())) {
-            return dealDate(1, 30, loadChartParam, "日");
-        } else if("quarter".equals(loadChartParam.getType())) {
-            return dealDate(1, 12, loadChartParam, "");
-        } else if("year".equals(loadChartParam.getType())) {
-            return dealDate(1, 12, loadChartParam, "月");
+    public List<ChartVo> getLoadChart(ChartParam chartParam) {
+        BeanValidator.check(chartParam);
+        if("day".equals(chartParam.getType())) {
+            return dealDate(6, 19, chartParam, ":00");
+        } else if("month".equals(chartParam.getType())) {
+            return dealDate(1, 30, chartParam, "日");
+        } else if("quarter".equals(chartParam.getType())) {
+            return dealDate(1, 12, chartParam, "");
+        } else if("year".equals(chartParam.getType())) {
+            return dealDate(1, 12, chartParam, "月");
         }
         return null;
     }
 
     @Override
-    public LoadIconVo getLoadIcon() {
-        LoadIconVo loadIconVo = new LoadIconVo();
+    public IconVo getLoadIcon(String local) {
+        IconVo iconVo = new IconVo();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
         String date = simpleDateFormat.format(new Date());
         date = "%" + date + "%";
         //TODO
-        String inverterName = "inverter1";
-        List<Inverter> inverterList = inverterMapper.selectInverterChart(inverterName, date);
+        local = "长沙理工大学" + local;
+        List<Load> loadList = loadMapper.selectLoadChart(local, date);
         double maxMouthPower = 0;
-        for(Inverter inverter : inverterList) {
-            if(inverter.getTotalActivePower() > maxMouthPower) {
-                maxMouthPower = inverter.getTotalActivePower();
+        for(Load load : loadList) {
+            if(load.getActivePower() > maxMouthPower) {
+                maxMouthPower = load.getActivePower();
             }
         }
-        loadIconVo.setMaxMouthLoad(maxMouthPower);
+        iconVo.setMaxMouthLoad(maxMouthPower);
         simpleDateFormat = new SimpleDateFormat("yyyy");
         date = simpleDateFormat.format(new Date());
         date = "%" + date + "%";
-        inverterList = inverterMapper.selectInverterChart(inverterName, date);
+        loadList =  loadMapper.selectLoadChart(local, date);
         double maxYearPower = 0;
-        for(Inverter inverter : inverterList) {
-            if(inverter.getTotalActivePower() > maxYearPower) {
-                maxYearPower = inverter.getTotalActivePower();
+        for(Load load : loadList) {
+            if(load.getActivePower() > maxYearPower) {
+                maxYearPower = load.getActivePower();
             }
         }
-        loadIconVo.setMaxYearLoad(maxYearPower);
-        Inverter inverter = inverterMapper.selectInverterNewest();
-        loadIconVo.setCurrentLoad(inverter.getTotalActivePower());
-        loadIconVo.setPercentage(1.2);
-        loadIconVo.setRatio(12.4);
-        return loadIconVo;
+        iconVo.setMaxYearLoad(maxYearPower);
+        //TODO
+        Load load = loadMapper.selectLoadNewest(local);
+        if(load != null) {
+            iconVo.setCurrentLoad(load.getActivePower());
+        } else {
+            iconVo.setCurrentLoad(0);
+        }
+        iconVo.setPercentage(1.2);
+        iconVo.setRatio(12.4);
+        return iconVo;
     }
+
+    @Override
+    public Set<ContrastChartVo> getContrastChart(ContrastChartParam contrastChartParam) {
+        BeanValidator.check(contrastChartParam);
+        String[] locals = contrastChartParam.getLocals().split("-");
+        ChartParam chartParam = new ChartParam();
+        BeanUtils.copyProperties(contrastChartParam, chartParam);
+        Set<ContrastChartVo> contrastChartVoSet = new HashSet<>();
+        for(String local : locals) {
+            chartParam.setLocal(local);
+            List<ChartVo> chartVoList = getLoadChart(chartParam);
+            ContrastChartVo contrastChartVo = new ContrastChartVo();
+            contrastChartVo.setList(chartVoList);
+            contrastChartVo.setLocal(local);
+            contrastChartVoSet.add(contrastChartVo);
+        }
+        return contrastChartVoSet;
+    }
+
+    private List<PieChartVo.Vo> getVoList(String dateType) {
+        String[] locals = {"长沙理工大学综合教学楼", "长沙理工大学工科一号楼", "长沙理工大学工科二号楼"};
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateType);
+        String date = "%" + simpleDateFormat.format(new Date()) + "%";
+        List<PieChartVo.Vo> voList = new ArrayList<>();
+        for(String local : locals) {
+            List<Load> loadList = loadMapper.selectLoadByLocalAndDate(local, date);
+            if(loadList == null || loadList.size() == 0) {
+                return null;
+            }
+            double totalActivePower = 0;
+            for(Load load : loadList) {
+                totalActivePower =+ load.getActivePower();
+            }
+            double averageActivePower = totalActivePower / loadList.size();
+            Load endLoad = loadList.get(loadList.size() - 1);
+            Load startLoad = loadList.get(0);
+            long time = endLoad.getTimes().getTime() - startLoad.getTimes().getTime();
+            time = time / 3600000;
+            PieChartVo.Vo vo = new PieChartVo().new Vo();
+            DecimalFormat decimalFormat = new DecimalFormat("######0.00");
+            String s = decimalFormat.format(averageActivePower * time);
+            vo.setConsume(Double.parseDouble(s));
+            vo.setLocal(local);
+            voList.add(vo);
+        }
+        return voList;
+    }
+
+    @Override
+    public List<PieChartVo> getPieChart() {
+        List<PieChartVo> pieChartVoList = new ArrayList<>();
+
+        //日
+        List<PieChartVo.Vo> voDayList = getVoList("yyyy-MM-dd");
+        PieChartVo pieChartVo = new PieChartVo();
+        pieChartVo.setVoList(voDayList);
+        pieChartVo.setDateType("day");
+        pieChartVoList.add(pieChartVo);
+        //月
+        List<PieChartVo.Vo> voMonthList = getVoList("yyyy-MM");
+        pieChartVo = new PieChartVo();
+        pieChartVo.setVoList(voMonthList);
+        pieChartVo.setDateType("month");
+        pieChartVoList.add(pieChartVo);
+
+        return pieChartVoList;
+    }
+
 }

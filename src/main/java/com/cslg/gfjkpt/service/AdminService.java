@@ -1,19 +1,15 @@
 package com.cslg.gfjkpt.service;
 
-import com.cslg.gfjkpt.beans.PageQuery;
-import com.cslg.gfjkpt.beans.PowerStationInfo;
-import com.cslg.gfjkpt.model.User;
+import com.cslg.gfjkpt.beans.UserParam;
+import com.cslg.gfjkpt.vo.UserVo;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface AdminService {
 
-    List<PowerStationInfo> getList(PageQuery pageQuery);
+    void addUser(UserParam userParam);
 
-    long getUserTotal();
+    List<UserVo> getUsers();
 
-    List<User> getUserList(PageQuery pageQuery);
-
-    void visitUser(Integer id, HttpServletResponse response);
+    void deleteUserById(int id);
 }

@@ -1,16 +1,19 @@
 package com.cslg.gfjkpt.controller;
 
-import com.cslg.gfjkpt.beans.InverterChartParam;
+import com.cslg.gfjkpt.beans.inverter.ChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
-import com.cslg.gfjkpt.vo.InverterChartVo;
-import com.cslg.gfjkpt.vo.InverterIconVo;
-import com.cslg.gfjkpt.vo.InverterVo;
+import com.cslg.gfjkpt.beans.inverter.PredictParam;
+import com.cslg.gfjkpt.vo.inverter.ChartVo;
+import com.cslg.gfjkpt.vo.inverter.IconVo;
+import com.cslg.gfjkpt.vo.inverter.InverterVo;
 import com.cslg.gfjkpt.common.ResultJson;
 import com.cslg.gfjkpt.service.InverterService;
+import com.cslg.gfjkpt.vo.inverter.PredictVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -44,15 +47,23 @@ public class InverterController {
 
     @ResponseBody
     @RequestMapping(value = "/chart")
-    public ResultJson chart(InverterChartParam inverterChartParam) {
-        List<InverterChartVo> inverterChartVoList = inverterService.getInverterChart(inverterChartParam);
-        return ResultJson.success(inverterChartVoList);
+    public ResultJson chart(ChartParam chartParam) {
+        List<ChartVo> chartVoList = inverterService.getInverterChart(chartParam);
+        return ResultJson.success(chartVoList);
     }
 
     @ResponseBody
-    @RequestMapping("/inverterIcon")
-    public  ResultJson loadIcon() {
-        InverterIconVo inverterIconVo = inverterService.getInverterIcon();
-        return ResultJson.success(inverterIconVo);
+    @RequestMapping(value = "/icon")
+    public ResultJson icon() {
+        IconVo iconVo = inverterService.getInverterIcon();
+        return ResultJson.success(iconVo);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/predict")
+    public ResultJson predict(PredictParam predictParam) {
+        PredictVo predictVo = inverterService.getInverterPredict(predictParam);
+        return ResultJson.success(predictVo);
+    }
+
 }

@@ -13,7 +13,15 @@ public class Load {
 
     private Date times;
 
-    private Double energyConsumption;
+    private String local;
+
+    private Double current;
+
+    private Double voltage;
+
+    private Double apparentPower;
+
+    private Double activePower;
 
     public Integer getId() {
         return id;
@@ -39,21 +47,43 @@ public class Load {
         this.times = times;
     }
 
-    public Double getEnergyConsumption() {
-        return energyConsumption;
+    public String getLocal() {
+        return local;
     }
 
-    public void setEnergyConsumption(Double energyConsumption) {
-        this.energyConsumption = energyConsumption;
+    public void setLocal(String local) {
+        this.local = local;
     }
 
-    @Override
-    public String toString() {
-        return "Load{" +
-                "id=" + id +
-                ", loadName='" + loadName + '\'' +
-                ", times=" + times +
-                ", energyConsumption=" + energyConsumption +
-                '}';
+    public Double getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Double current) {
+        this.current = current;
+    }
+
+    public Double getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(Double voltage) {
+        this.voltage = voltage;
+    }
+
+    public Double getApparentPower() {
+        return apparentPower;
+    }
+
+    public void setApparentPower(Double apparentPower) {
+        this.apparentPower = apparentPower;
+    }
+
+    public Double getActivePower() {
+        return activePower;
+    }
+
+    public void setActivePower(Double activePower) {
+        this.activePower = activePower;
     }
 }

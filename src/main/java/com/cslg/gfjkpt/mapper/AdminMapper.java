@@ -1,22 +1,14 @@
 package com.cslg.gfjkpt.mapper;
 
-import com.cslg.gfjkpt.beans.PageQuery;
 import com.cslg.gfjkpt.model.User;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface AdminMapper {
 
-    List<User> selectAllUser();
+    void insertUser(User user);
 
-    List<User> selectUserPage(@Param("pageQuery") PageQuery pageQuery);
+    List<User> selectUsers();
 
-    List<String> selectInverterName(@Param("userId") int userId);
-
-    Long selectUserTotal();
-
-    void insertRelation(@Param("userId") int userId, @Param("inverterName") String inverterName);
-
-
+    void deleteUserById(int id);
 }

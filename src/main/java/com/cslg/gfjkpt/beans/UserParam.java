@@ -5,25 +5,17 @@ import org.hibernate.validator.constraints.NotBlank;
 
 public class UserParam {
 
-    private int id;
-
-    @NotBlank(message = "账号不能为空")
-    @Length(min = 1, max = 32, message = "用户名长度须在32个字以内")
+    //@NotBlank(message = "账号不能为空")
+    //@Length(min = 1, max = 32, message = "用户名长度须在32个字以内")
     private String username;
 
-    @NotBlank(message = "密码不能为空")
-    @Length(min = 4, max = 12, message = "密码长度须在4-12个字符")
+    //@NotBlank(message = "密码不能为空")
+    //@Length(min = 4, max = 12, message = "密码长度须在4-12个字符")
     private String password;
 
-    private String comment;
+    private int status;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String role;
 
     public String getUsername() {
         return username;
@@ -41,11 +33,19 @@ public class UserParam {
         this.password = password;
     }
 
-    public String getComment() {
-        return comment;
+    public int getStatus() {
+        return status;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

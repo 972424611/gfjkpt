@@ -3,11 +3,11 @@
 <mapper namespace="com.cslg.gfjkpt.mapper.UserMapper" >
 
     <select id="selectUserById" resultType="com.cslg.gfjkpt.model.User">
-        SELECT id, username, comment, create_time, update_time FROM tb_user WHERE id = #{id}
+        SELECT id, username, role, create_time, update_time FROM tb_user WHERE id = #{id}
     </select>
 
     <select id="selectUserByUsername" resultType="com.cslg.gfjkpt.model.User">
-        SELECT id, username, comment, create_time, update_time FROM tb_user WHERE username = #{username}
+        SELECT id, username, role, create_time, update_time FROM tb_user WHERE username = #{username}
     </select>
 
     <select id="selectUserIdByAdmAndPw" resultType="Integer">
@@ -15,7 +15,7 @@
     </select>
 
     <insert id="insertUser">
-        INSERT INTO tb_user (username, password, comment, create_time, update_time)
+        INSERT INTO tb_user (username, password, role, create_time, update_time)
         VALUES (#{username}, #{password}, #{comment}, #{createTime}, #{updateTime})
     </insert>
 </mapper>

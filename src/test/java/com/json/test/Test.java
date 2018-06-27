@@ -19,6 +19,10 @@
 //    public static void  test6() {
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        System.out.println(simpleDateFormat.format(new Date()));
+//
+//        String date = "2018-03-02";
+//        String s = date.substring(0, date.lastIndexOf("-") + 1);
+//        System.out.println(s);
 //    }
 //
 //    public void init() {
@@ -56,7 +60,7 @@
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        } finally {
-//            if(socket != null) {
+//            if (socket != null) {
 //                try {
 //                    socket.close();
 //                } catch (IOException e) {

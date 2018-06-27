@@ -1,10 +1,12 @@
 package com.cslg.gfjkpt.service;
 
-import com.cslg.gfjkpt.beans.InverterChartParam;
+import com.cslg.gfjkpt.beans.inverter.ChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
-import com.cslg.gfjkpt.vo.InverterChartVo;
-import com.cslg.gfjkpt.vo.InverterIconVo;
-import com.cslg.gfjkpt.vo.InverterVo;
+import com.cslg.gfjkpt.beans.inverter.PredictParam;
+import com.cslg.gfjkpt.vo.inverter.ChartVo;
+import com.cslg.gfjkpt.vo.inverter.IconVo;
+import com.cslg.gfjkpt.vo.inverter.InverterVo;
+import com.cslg.gfjkpt.vo.inverter.PredictVo;
 
 import java.util.List;
 
@@ -16,10 +18,11 @@ public interface InverterService {
 
     InverterVo getInverterData(String inverterName, PageQuery pageQuery);
 
-    List<InverterChartVo> getInverterChart(InverterChartParam inverterChartParam);
+    List<ChartVo> getInverterChart(ChartParam chartParam);
 
     List<String> getInverterNameList();
 
-    InverterIconVo getInverterIcon();
+    IconVo getInverterIcon();
 
+    PredictVo getInverterPredict(PredictParam predictParam);
 }

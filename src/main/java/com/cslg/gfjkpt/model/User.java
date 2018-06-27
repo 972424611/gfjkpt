@@ -4,23 +4,21 @@ import java.util.Date;
 
 public class User {
 
-    private int id;
+    private Integer id;
 
     private String username;
 
     private String password;
 
-    private String comment;
+    private String role;
 
-    private Date createTime;
+    private Integer status;
 
-    private Date updateTime;
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,27 +38,19 @@ public class User {
         this.password = password;
     }
 
-    public String getComment() {
-        return comment;
+    public String getRole() {
+        return role;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

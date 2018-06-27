@@ -1,3 +1,4 @@
+/*
 package com.cslg.gfjkpt.controller;
 
 import com.cslg.gfjkpt.beans.UserParam;
@@ -18,10 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+*/
 /**
  * 用户模块
  * @author aekc
- */
+ *//*
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -73,3 +76,4 @@ public class UserController {
     }
 
 }
+*/

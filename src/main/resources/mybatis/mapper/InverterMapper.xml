@@ -2,19 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cslg.gfjkpt.mapper.InverterMapper" >
 
-    <insert id="insertInverter" parameterType="com.cslg.gfjkpt.model.Inverter">
-        INSERT INTO tb_inverter (times, inverter_name, daily_output,
-          total_output, a_phase_current, a_phase_voltage,
-          b_phase_current, b_phase_voltage, c_phase_current,
-          c_phase_voltage, total_active_power, tans_temp
-          )
-        VALUES (#{times}, #{inverterName}, #{dailyOutput},
-          #{totalOutput}, #{aPhaseCurrent}, #{aPhaseVoltage},
-          #{bPhaseCurrent}, #{bPhaseVoltage}, #{cPhaseCurrent},
-          #{cPhaseVoltage}, #{totalActivePower}, #{tansTemp}
-          )
-    </insert>
-
     <select id="selectAllInverter" resultType="com.cslg.gfjkpt.model.Inverter">
         SELECT * FROM tb_inverter WHERE inverter_name = #{inverterName}
     </select>

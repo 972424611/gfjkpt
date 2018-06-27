@@ -10,23 +10,9 @@ import java.util.List;
  */
 public interface LoadMapper {
 
-    /**
-     * 插入
-     * @param load Load pojo
-     */
-    void insertLoad(Load load);
+    List<Load> selectLoadChart(@Param("local") String local, @Param("date") String date);
 
-    /**
-     * 通过日期, 获取负荷能耗, 或月 年, 获取负荷能耗
-     * @param loadName 负荷名称
-     * @param date 日期 或月 年
-     * @return List<Load>
-     */
-    List<Load> selectLoadByDate(@Param("loadName") String loadName, @Param("date") String date);
+    Load selectLoadNewest(@Param("local") String local);
 
-    /**
-     * 获取最新的load数据
-     * @return
-     */
-    Load selectLoadByName(String loadName);
+    List<Load> selectLoadByLocalAndDate(@Param("local") String local, @Param("date") String date);
 }

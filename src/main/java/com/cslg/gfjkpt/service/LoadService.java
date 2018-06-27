@@ -1,12 +1,14 @@
 package com.cslg.gfjkpt.service;
 
-import com.cslg.gfjkpt.beans.LoadChartParam;
-import com.cslg.gfjkpt.vo.LoadChartVo;
-import com.cslg.gfjkpt.model.Load;
-import com.cslg.gfjkpt.vo.LoadIconVo;
+import com.cslg.gfjkpt.beans.load.ChartParam;
+import com.cslg.gfjkpt.beans.load.ContrastChartParam;
+import com.cslg.gfjkpt.vo.load.ChartVo;
+import com.cslg.gfjkpt.vo.load.ContrastChartVo;
+import com.cslg.gfjkpt.vo.load.IconVo;
+import com.cslg.gfjkpt.vo.load.PieChartVo;
 
 import java.util.List;
-import java.util.TreeMap;
+import java.util.Set;
 
 /**
  * 对负荷的操作
@@ -14,13 +16,11 @@ import java.util.TreeMap;
  */
 public interface LoadService {
 
-    /**
-     * 插入数据
-     * @param load Load pojo
-     */
-    void saveLoadData(Load load);
+    List<ChartVo> getLoadChart(ChartParam chartParam);
 
-    List<LoadChartVo> getLoadChart(LoadChartParam loadChartParam);
+    IconVo getLoadIcon(String local);
 
-    LoadIconVo getLoadIcon();
+    Set<ContrastChartVo> getContrastChart(ContrastChartParam contrastChartParam);
+
+    List<PieChartVo> getPieChart();
 }

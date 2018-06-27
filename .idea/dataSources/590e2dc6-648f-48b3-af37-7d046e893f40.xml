@@ -10,177 +10,304 @@
     <schema id="4" parent="1" name="mysql"/>
     <schema id="5" parent="1" name="performance_schema"/>
     <schema id="6" parent="1" name="sys"/>
-    <table id="7" parent="2" name="tb_inverter">
+    <schema id="7" parent="1" name="bmxt">
+      <Current>1</Current>
+    </schema>
+    <schema id="8" parent="1" name="yynews"/>
+    <table id="9" parent="2" name="tb_equipment">
+      <Comment>设备</Comment>
+    </table>
+    <table id="10" parent="2" name="tb_inverter">
       <Comment>逆变器</Comment>
     </table>
-    <table id="8" parent="2" name="tb_load">
+    <table id="11" parent="2" name="tb_load">
       <Comment>负荷</Comment>
     </table>
-    <table id="9" parent="2" name="tb_user">
+    <table id="12" parent="2" name="tb_user">
       <Comment>用户</Comment>
     </table>
-    <column id="10" parent="7" name="id">
+    <column id="13" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="14" parent="9" name="type">
+      <Position>2</Position>
+      <Comment>设备类型</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="15" parent="9" name="number">
+      <Position>3</Position>
+      <Comment>设备编号</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="16" parent="9" name="name">
+      <Position>4</Position>
+      <Comment>设备名称</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="17" parent="9" name="model">
+      <Position>5</Position>
+      <Comment>设备型号</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="18" parent="9" name="status">
+      <Position>6</Position>
+      <Comment>设备状态0-关闭 1-打开</Comment>
+      <DataType>int(1)|0</DataType>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="19" parent="9" name="factory_number">
+      <Position>7</Position>
+      <Comment>出厂编号</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="20" parent="9" name="current">
+      <Position>8</Position>
+      <Comment>电流</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="21" parent="9" name="voltage">
+      <Position>9</Position>
+      <Comment>电压</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="22" parent="9" name="frequency">
+      <Position>10</Position>
+      <Comment>频率</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="23" parent="9" name="rated_power">
+      <Position>11</Position>
+      <Comment>额定功率</Comment>
+      <DataType>int(4)|0</DataType>
+    </column>
+    <column id="24" parent="9" name="price">
+      <Position>12</Position>
+      <Comment>单价</Comment>
+      <DataType>double(5,1)|0</DataType>
+    </column>
+    <column id="25" parent="9" name="ip_address">
+      <Position>13</Position>
+      <Comment>ip地址</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="26" parent="9" name="installation_position">
+      <Position>14</Position>
+      <Comment>安装位置</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="27" parent="9" name="management_unit">
+      <Position>15</Position>
+      <Comment>管理单位</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="28" parent="9" name="manufacturer">
+      <Position>16</Position>
+      <Comment>生产厂家</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="29" parent="9" name="manufacture_date">
+      <Position>17</Position>
+      <Comment>生产日期</Comment>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="30" parent="9" name="service_life">
+      <Position>18</Position>
+      <Comment>使用年限</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="31" parent="9" name="purchase_date">
+      <Position>19</Position>
+      <Comment>购置日期</Comment>
+      <DataType>datetime|0</DataType>
+    </column>
+    <key id="32" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="33" parent="10" name="id">
       <Position>1</Position>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="11" parent="7" name="local">
+    <column id="34" parent="10" name="local">
       <Position>2</Position>
       <Comment>逆变器所在位置</Comment>
       <DataType>varchar(64)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="12" parent="7" name="inverter_name">
+    <column id="35" parent="10" name="inverter_name">
       <Position>3</Position>
       <Comment>逆变器的名字</Comment>
       <DataType>varchar(15)|0</DataType>
     </column>
-    <column id="13" parent="7" name="times">
+    <column id="36" parent="10" name="times">
       <Position>4</Position>
       <Comment>最后一次更新时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="14" parent="7" name="daily_output">
+    <column id="37" parent="10" name="daily_output">
       <Position>5</Position>
       <Comment>日发电量(kWh)</Comment>
       <DataType>double(8,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="15" parent="7" name="total_output">
+    <column id="38" parent="10" name="total_output">
       <Position>6</Position>
       <Comment>总发电量(kWh)</Comment>
       <DataType>double(12,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="16" parent="7" name="a_phase_current">
+    <column id="39" parent="10" name="a_phase_current">
       <Position>7</Position>
       <Comment>A相电流(A)</Comment>
       <DataType>double(5,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="17" parent="7" name="a_phase_voltage">
+    <column id="40" parent="10" name="a_phase_voltage">
       <Position>8</Position>
       <Comment>A相电压(V)</Comment>
       <DataType>double(7,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="18" parent="7" name="b_phase_current">
+    <column id="41" parent="10" name="b_phase_current">
       <Position>9</Position>
       <Comment>B相电流(A)</Comment>
       <DataType>double(5,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="19" parent="7" name="b_phase_voltage">
+    <column id="42" parent="10" name="b_phase_voltage">
       <Position>10</Position>
       <Comment>B相电压(V)</Comment>
       <DataType>double(7,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="20" parent="7" name="c_phase_current">
+    <column id="43" parent="10" name="c_phase_current">
       <Position>11</Position>
       <Comment>C相电流(A)</Comment>
       <DataType>double(5,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="21" parent="7" name="c_phase_voltage">
+    <column id="44" parent="10" name="c_phase_voltage">
       <Position>12</Position>
       <Comment>C相电压(V)</Comment>
       <DataType>double(7,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="22" parent="7" name="total_active_power">
+    <column id="45" parent="10" name="total_active_power">
       <Position>13</Position>
       <Comment>总有功功率(W)</Comment>
       <DataType>double(12,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="23" parent="7" name="tans_temp_1">
+    <column id="46" parent="10" name="tans_temp_1">
       <Position>14</Position>
       <Comment>模块1-机内散热器温度(℃)</Comment>
       <DataType>double(4,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <column id="24" parent="7" name="tans_temp_2">
+    <column id="47" parent="10" name="tans_temp_2">
       <Position>15</Position>
       <Comment>模块2-机内散热器温度(℃)</Comment>
       <DataType>double(4,1)|0</DataType>
       <DefaultExpression>&apos;0.0&apos;</DefaultExpression>
     </column>
-    <key id="25" parent="7" name="PRIMARY">
+    <key id="48" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="26" parent="8" name="id">
+    <column id="49" parent="11" name="id">
       <Position>1</Position>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="27" parent="8" name="load_name">
+    <column id="50" parent="11" name="load_name">
       <Position>2</Position>
       <Comment>负荷设备名称</Comment>
       <DataType>varchar(15)|0</DataType>
     </column>
-    <column id="28" parent="8" name="times">
+    <column id="51" parent="11" name="times">
       <Position>3</Position>
       <Comment>最后一次更新时间</Comment>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="29" parent="8" name="energy_consumption">
+    <column id="52" parent="11" name="local">
       <Position>4</Position>
-      <Comment>能耗</Comment>
+      <Comment>负荷所在位置</Comment>
+      <DataType>varchar(32)|0</DataType>
+    </column>
+    <column id="53" parent="11" name="current">
+      <Position>5</Position>
+      <Comment>电流(A)</Comment>
+      <DataType>double(7,1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="54" parent="11" name="voltage">
+      <Position>6</Position>
+      <Comment>电压(V)</Comment>
       <DataType>double(7,1)|0</DataType>
     </column>
-    <key id="30" parent="8" name="PRIMARY">
+    <column id="55" parent="11" name="apparent_power">
+      <Position>7</Position>
+      <Comment>视在功率(W)</Comment>
+      <DataType>double(7,1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="11" name="active_power">
+      <Position>8</Position>
+      <Comment>有功功率(W)</Comment>
+      <DataType>double(7,1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="57" parent="11" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="31" parent="9" name="id">
+    <column id="58" parent="12" name="id">
       <Position>1</Position>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="32" parent="9" name="username">
+    <column id="59" parent="12" name="username">
       <Position>2</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="9" name="password">
+    <column id="60" parent="12" name="password">
       <Position>3</Position>
       <Comment>密码</Comment>
       <DataType>varchar(128)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="34" parent="9" name="comment">
+    <column id="61" parent="12" name="role">
       <Position>4</Position>
-      <Comment>说明地区什么的</Comment>
-      <DataType>varchar(64)|0</DataType>
+      <Comment>角色</Comment>
+      <DataType>varchar(12)|0</DataType>
     </column>
-    <column id="35" parent="9" name="create_time">
+    <column id="62" parent="12" name="status">
       <Position>5</Position>
-      <Comment>创建日期</Comment>
-      <DataType>datetime|0</DataType>
+      <Comment>状态 0-失效 1-有效</Comment>
+      <DataType>int(1)|0</DataType>
     </column>
-    <column id="36" parent="9" name="update_time">
-      <Position>6</Position>
-      <Comment>最近一次修改时间</Comment>
-      <DataType>datetime|0</DataType>
-    </column>
-    <index id="37" parent="9" name="tb_user_username_uindex">
+    <index id="63" parent="12" name="tb_user_username_uindex">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="38" parent="9" name="PRIMARY">
+    <key id="64" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="39" parent="9" name="tb_user_username_uindex">
+    <key id="65" parent="12" name="tb_user_username_uindex">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>tb_user_username_uindex</UnderlyingIndexName>
     </key>

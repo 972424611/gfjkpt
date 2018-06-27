@@ -2,19 +2,13 @@ package com.cslg.gfjkpt.service.impl;
 
 import com.cslg.gfjkpt.mapper.InverterMapper;
 import com.cslg.gfjkpt.model.Inverter;
-import com.cslg.gfjkpt.model.Load;
 import com.cslg.gfjkpt.service.LoadService;
 import com.cslg.gfjkpt.service.PreviewService;
 import com.cslg.gfjkpt.vo.HomePageVo;
-import com.cslg.gfjkpt.vo.InverterIconVo;
-import com.cslg.gfjkpt.vo.InverterVo;
-import com.cslg.gfjkpt.vo.LoadIconVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,6 +61,31 @@ public class PreviewServiceImpl implements PreviewService {
         homePageVo.setTotalOutput(inverter.getTotalOutput() * 4.3);
         homePageVo.setUpdateTime(inverter.getTimes());
         homePageVoList.add(homePageVo);
+
+        //湖南黄甲岭电厂
+        homePageVo = new HomePageVo();
+        homePageVo.setCurrentPower(0);
+        homePageVo.setDailyOutput(0);
+        //TODO
+        homePageVo.setScale("建设中");
+        name = "Hunan Huang Jia Ling power plant";
+        homePageVo.setName(name);
+        homePageVo.setTotalOutput(0);
+        homePageVo.setUpdateTime(null);
+        homePageVoList.add(homePageVo);
+
+        //湖南湘潭大栗湾光伏电站
+        homePageVo = new HomePageVo();
+        homePageVo.setCurrentPower(0);
+        homePageVo.setDailyOutput(0);
+        //TODO
+        homePageVo.setScale("建设中");
+        name = "Dali Wan PV power station in Xiangtan, Hunan";
+        homePageVo.setName(name);
+        homePageVo.setTotalOutput(0);
+        homePageVo.setUpdateTime(null);
+        homePageVoList.add(homePageVo);
+
 
         return homePageVoList;
     }

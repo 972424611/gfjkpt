@@ -1,3 +1,4 @@
+/*
 package com.cslg.gfjkpt.service.impl;
 
 import com.cslg.gfjkpt.beans.UserParam;
@@ -56,3 +57,4 @@ public class UserServiceImpl implements UserService {
     }
 
 }
+*/
