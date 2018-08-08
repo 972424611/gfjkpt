@@ -136,7 +136,7 @@ public class InverterServiceImpl implements InverterService {
                     try {
                         str = fieldMap.get(param.getField());
                         String methodName = "get" + str.substring(0, 1).toUpperCase() + str.substring(1);
-                        Class<?> c = Class.forName("com.cslg.gfjkpt.model.Inverter");
+                        Class<?> c = Inverter.class;
                         Method method = c.getMethod(methodName);
                         Object o = method.invoke(inverter);
                         field += (double) o;
@@ -159,6 +159,11 @@ public class InverterServiceImpl implements InverterService {
                 time = time.substring(time.length() - 2);
                 chartVo.setTimes(Integer.valueOf(time).toString() + s);
                 chartVoList.add(chartVo);
+            } else {
+                ChartVo chartVo = new ChartVo(0, 0, 0);
+                time = time.substring(time.length() - 2);
+                chartVo.setTimes(Integer.valueOf(time).toString() + s);
+                chartVoList.add(chartVo);
             }
         }
         //如果是季度就特殊处理
@@ -170,9 +175,9 @@ public class InverterServiceImpl implements InverterService {
 
     @Override
     public List<ChartVo> getInverterChart(ChartParam chartParam) {
-        BeanValidator.check(chartParam);
+        //BeanValidator.check(chartParam);
         if("day".equals(chartParam.getType())) {
-            return dealDate(6, 19, chartParam, ":00");
+            return dealDate(1, 24, chartParam, ":00");
         } else if("month".equals(chartParam.getType())) {
             return dealDate(1, 30, chartParam, "日");
         } else if("quarter".equals(chartParam.getType())) {

@@ -10,6 +10,14 @@ public class ChartVo {
 
     private String times;
 
+    public ChartVo(double field, double tansTemp1, double tansTemp2) {
+        this.field = field;
+        this.tansTemp1 = tansTemp1;
+        this.tansTemp2 = tansTemp2;
+    }
+
+    public ChartVo() {}
+
     public double getTansTemp1() {
         return tansTemp1;
     }
@@ -40,5 +48,15 @@ public class ChartVo {
 
     public void setField(double field) {
         this.field = field;
+    }
+
+    @Override
+    public String toString() {
+        return "ChartVo{" +
+                "field=" + field +
+                ", tansTemp1=" + tansTemp1 +
+                ", tansTemp2=" + tansTemp2 +
+                ", times='" + times + '\'' +
+                '}';
     }
 }

@@ -1,13 +1,55 @@
 package com.cslg.gfjkpt.utils;
 
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
  * 日期转换工具类
  */
 public class VeDateUtils {
+
+    /**
+     * 获取指定日期的前一天
+     * @param specifiedDay yyyy-MM-dd
+     * @return yyyy-MM-dd
+     */
+    public static String getDayBefore(String specifiedDay) {
+        Calendar calendar = Calendar.getInstance();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(specifiedDay);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
+        int day = calendar.get(Calendar.DATE);
+        calendar.set(Calendar.DATE, day - 1);
+        return new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+    }
+
+    /**
+     * 获取指定日期的后一天
+     * @param specifiedDay yyyy-MM-dd
+     * @return yyyy-MM-dd
+     */
+    public static String getDayAfter(String specifiedDay) {
+        Calendar calendar = Calendar.getInstance();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(specifiedDay);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendar.setTime(date);
+        int day = calendar.get(Calendar.DATE);
+        calendar.set(Calendar.DATE, day + 1);
+        return new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+    }
+
+
 
     /**
      * 获取现在时间
