@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -23,8 +25,9 @@ public class PreviewController {
 
     @ResponseBody
     @RequestMapping("/list")
-    public ResultJson list() {
+    public ResultJson list() throws ParseException {
         List<HomePageVo> homePageVoList = previewService.getHomePageList();
+
         return ResultJson.success(homePageVoList);
     }
 }

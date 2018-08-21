@@ -64,7 +64,7 @@ public class InverterController {
             }
             calendar.setTime(date);
             int day = calendar.get(Calendar.DATE);
-            calendar.set(Calendar.DATE, day - 30);
+            calendar.set(Calendar.DATE, day - 1);
             chartParam.setDate(new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime()));
         } else {
             try {
@@ -79,7 +79,7 @@ public class InverterController {
         }
         List<ChartVo> chartVoList = inverterService.getInverterChart(chartParam);
         if("day".equals(chartParam.getType())) {
-            chartParam.setDate(VeDateUtils.getDayBefore(chartParam.getDate()));
+            chartParam.setDate(VeDateUtils.getDayAfter(chartParam.getDate()));
         } else {
             try {
                 date = new SimpleDateFormat("yyyy-MM").parse(chartParam.getDate());
@@ -88,7 +88,7 @@ public class InverterController {
             }
             calendar.setTime(date);
             int month = calendar.get(Calendar.MONTH);
-            calendar.set(Calendar.MONTH, month - 1);
+            calendar.set(Calendar.MONTH, month + 1);
             chartParam.setDate(new SimpleDateFormat("yyyy-MM").format(calendar.getTime()));
         }
         chartVoList.addAll(inverterService.getInverterChart(chartParam));

@@ -5,6 +5,7 @@ import com.cslg.gfjkpt.beans.load.ContrastChartParam;
 import com.cslg.gfjkpt.common.ResultJson;
 import com.cslg.gfjkpt.service.LoadService;
 
+import com.cslg.gfjkpt.utils.IpUtil;
 import com.cslg.gfjkpt.vo.load.ChartVo;
 import com.cslg.gfjkpt.vo.load.IconVo;
 import com.cslg.gfjkpt.vo.load.PieChartVo;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -56,5 +58,14 @@ public class LoadController {
     public ResultJson pieChart() {
         List<PieChartVo> pieChartVoList = loadService.getPieChart();
         return ResultJson.success(pieChartVoList);
+    }
+
+    @RequestMapping(value = "/test")
+    public void test(HttpServletRequest request) {
+        System.out.println(request.getHeader("x-real-ip"));
+        System.out.println(request.getRemoteAddr());
+        System.out.println("userIp: " + IpUtil.getUserIP(request));
+        System.out.println("remoteIp: " + IpUtil.getRemoteIp(request));
+        System.out.println("serverIp: " + IpUtil.getServerIP());
     }
 }
