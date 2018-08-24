@@ -10,8 +10,8 @@
         SELECT id, username, role, create_time, update_time FROM tb_user WHERE username = #{username}
     </select>
 
-    <select id="selectUserIdByAdmAndPw" resultType="Integer">
-        SELECT id FROM tb_user WHERE username = #{username} AND password = #{password}
+    <select id="selectUserIdByAdmAndPw" resultType="com.cslg.gfjkpt.model.User">
+        SELECT * FROM tb_user WHERE username = #{username} AND password = #{password}
     </select>
 
     <insert id="insertUser">

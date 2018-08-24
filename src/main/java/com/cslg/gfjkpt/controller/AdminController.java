@@ -1,6 +1,7 @@
 package com.cslg.gfjkpt.controller;
 
 import com.cslg.gfjkpt.beans.UserParam;
+import com.cslg.gfjkpt.common.CookieSessionManage;
 import com.cslg.gfjkpt.common.ResultJson;
 import com.cslg.gfjkpt.service.AdminService;
 import com.cslg.gfjkpt.vo.UserVo;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,22 +24,32 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping(value = "/add")
-    public ResultJson add(UserParam userParam) {
-        adminService.addUser(userParam);
+    public ResultJson add(UserParam userParam, HttpServletRequest request) {
+        String username = (String) CookieSessionManage.getSession(request);
+        if("管理员".equals(username)) {
+            adminService.addUser(userParam);
+        }
         return ResultJson.success();
     }
 
     @ResponseBody
     @RequestMapping(value = "/list")
-    public ResultJson list() {
-        List<UserVo> userList = adminService.getUsers();
-        return ResultJson.success(userList);
+    public ResultJson list(HttpServletRequest request) {
+        String role = (String) CookieSessionManage.getSession(request);
+        if("管理员".equals(role)) {
+            List<UserVo> userList = adminService.getUsers();
+            return ResultJson.success(userList);
+        }
+        return ResultJson.success(new ArrayList<>());
     }
 
     @ResponseBody
     @RequestMapping(value = "/delete")
-    public ResultJson delete(@RequestParam("id") Integer id) {
-        adminService.deleteUserById(id);
+    public ResultJson delete(@RequestParam("id") Integer id, HttpServletRequest request) {
+        String username = (String) CookieSessionManage.getSession(request);
+        if("管理员".equals(username)) {
+            adminService.deleteUserById(id);
+        }
         return ResultJson.success();
     }
 }

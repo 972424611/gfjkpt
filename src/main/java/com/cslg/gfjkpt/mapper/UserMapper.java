@@ -24,7 +24,7 @@ public interface UserMapper {
      * @param user User
      * @return 用户id,
      */
-    Integer selectUserIdByAdmAndPw(User user);
+    User selectUserIdByAdmAndPw(User user);
 
     /**
      * 创建新用户
