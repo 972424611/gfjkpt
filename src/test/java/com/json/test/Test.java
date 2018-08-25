@@ -1,28 +1,27 @@
 //package com.json.test;
 //
+//import com.cslg.gfjkpt.utils.HttpClientUtils;
+//import org.junit.Test;
+//
 //import java.io.DataInputStream;
 //import java.io.DataOutputStream;
 //import java.io.IOException;
 //import java.net.ServerSocket;
 //import java.net.Socket;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
 //
 //public class Test {
 //
 //    private static final int PORT = 123;
 //
 //    public static void main(String[] args) {
-//        test6();
+//        String json = HttpClientUtils.doPost("http://127.0.0.1:12580/shutdown");
+//        System.out.println(json);
 //    }
 //
+//    @org.junit.Test
 //    public static void  test6() {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        System.out.println(simpleDateFormat.format(new Date()));
-//
-//        String date = "2018-03-02";
-//        String s = date.substring(0, date.lastIndexOf("-") + 1);
-//        System.out.println(s);
+//        String json = HttpClientUtils.doPost("http://127.0.0.1:12580/shutdown");
+//        System.out.println(json);
 //    }
 //
 //    public void init() {

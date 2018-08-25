@@ -21,6 +21,12 @@ import java.util.Map;
 
 public class HttpClientUtils {
 
+	public static void main(String[] args) {
+		String json = HttpClientUtils.doPost("http://47.106.101.133:12580/MyActuator/shutdown");
+		System.out.println(json);
+	}
+
+
 	public static String doGet(String url, Map<String, String> param) {
 
 		// 创建Httpclient对象
