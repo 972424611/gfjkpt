@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.LoadMapper" >
+
+    <select id="selectLoadChart" resultType="com.cslg.gfjkpt.model.Load">
+        SELECT * FROM tb_load WHERE local = #{local} AND times LIKE #{date}
+    </select>
+
+    <select id="selectLoadNewest" resultType="com.cslg.gfjkpt.model.Load">
+        SELECT * FROM tb_load WHERE id = (SELECT MAX(id) FROM tb_load) AND local = #{local}
+    </select>
+
+    <select id="selectLoadByLocalAndDate" resultType="com.cslg.gfjkpt.model.Load">
+        SELECT * FROM tb_load WHERE times LIKE #{date} AND local = #{local} AND active_power != 0
+    </select>
+</mapper>

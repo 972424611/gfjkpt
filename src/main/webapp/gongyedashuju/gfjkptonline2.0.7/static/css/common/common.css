@@ -1,0 +1,164 @@
+/*静态页面公用的样式*/
+html{
+    overflow-y: scroll;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+    height: auto;
+}
+select{
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+    padding-right: 14px;
+}
+/*生成小图标的css*/
+@font-face {
+    font-family: 'iconfont';  /* project id 603718 */
+    src: url('https://at.alicdn.com/t/font_603718_vbl1xm2ge2sxlxr.eot');
+    src: url('https://at.alicdn.com/t/font_603718_vbl1xm2ge2sxlxr.eot?#iefix') format('embedded-opentype'),
+    url('https://at.alicdn.com/t/font_603718_vbl1xm2ge2sxlxr.woff') format('woff'),
+    url('https://at.alicdn.com/t/font_603718_vbl1xm2ge2sxlxr.ttf') format('truetype'),
+    url('https://at.alicdn.com/t/font_603718_vbl1xm2ge2sxlxr.svg#iconfont') format('svg');
+}
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.iconfont{
+    font-family: "iconfont";
+    font-size: 16px;
+    font-style: normal;
+    color: #eeeeee;
+}
+/*生成小图标的css--end*/
+.container{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    min-width: 1280px;
+}
+.header{
+    width: 100%;
+    height: auto;
+}
+.header-wrap{
+    width: 100%;
+    height: auto;
+}
+.header-nav{
+    height: 50px;
+    background-color: rgba(52,61,68,1);
+    border: none;
+    border-radius: 0;
+    margin: 0;
+}
+.header-wrap > .header-nav > .container-fluid > .navbar-header > a{
+    color: #eeeeee;
+}
+.container-fluid > .navbar-right-list > li > a{
+    color: #eeeeee;
+}
+.container-fluid > .navbar-right-list > li > a:hover{
+    color: #ffffff;
+}
+.container-fluid > .navbar-right-list > li > a:visited{
+    color: #ffffff;
+}
+.section{
+    width: 100%;
+    height: auto;
+}
+.section-wrap{
+    width: 100%;
+    height: auto;
+}
+.section-left{
+    position: fixed;
+    display: inline-block;
+    vertical-align: top;
+    width: 10%;
+    height: 100%;
+    background-color: rgba(52,61,68,0.9);
+    min-width: 128px;
+}
+/*.list-title{*/
+    /*width: 100%;*/
+    /*height: 40px;*/
+    /*line-height: 40px;*/
+    /*background-color: rgba(52,61,68,1);*/
+    /*color: #eeeeee;*/
+    /*font-size: 20px;*/
+    /*text-align: center;*/
+    /*border-bottom: 1px solid #dddddd;*/
+/*}*/
+/*.title{*/
+    /*margin: 0;*/
+/*}*/
+/*.list > ul > li  > p{*/
+    /*width: 100%;*/
+    /*margin: 0;*/
+/*}*/
+/*.list-se > li{*/
+    /*width: 100%;*/
+    /*background-color: rgba(52,61,68,0.9);*/
+/*}*/
+/*.list-se > li > p{*/
+    /*text-align: center;*/
+    /*width: 100%;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*border: none;*/
+    /*font-size: 16px;*/
+/*}*/
+.section-right{
+    display: inline-block;
+    vertical-align: top;
+    width: 89%;
+    height: auto;
+    min-width: 1139px;
+    margin-left: 11%;
+}
+
+/*修改左侧菜单样式--开始*/
+.panel-group .panel + .panel{
+    margin-top: 0;
+}
+.panel-default{
+    background-color: rgba(52,61,68,0.9);
+    color: rgba(255,245,238,0.9);
+    font-size: 16px;
+    text-align: center;
+    border: none;
+}
+.panel-default > .panel-heading{
+    background-color: rgba(52,61,68,0.9);
+    color: rgba(255,245,238,0.9);
+    font-size: 20px;
+    font-weight: 800;
+}
+.panel-body{
+    padding: 3px;
+}
+.panel-body > ul{
+    margin-bottom: 0;
+}
+.panel-body > ul > li{
+    width: 100%;
+    cursor: pointer;
+    /*background-color: rgba(105,108,105,0.9)*/
+}
+.panel-body > ul > li:hover{
+    background-color: rgba(105,105,105,1);
+    height: 25px;
+    line-height: 25px;
+    border: none;
+}
+/*修改左侧菜单样式--结束*/

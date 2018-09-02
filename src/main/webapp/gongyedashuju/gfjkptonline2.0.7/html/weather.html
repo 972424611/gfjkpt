@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气预测</title>
+    <link rel="stylesheet" href="../plugin/layui/css/layui.css">
+    <link rel="stylesheet" href="../plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../plugin/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../static/css/common/common.css">
+    <link rel="stylesheet" href="../plugin/accordion/css/index.css">
+    <link rel="stylesheet" href="../static/css/weather/weather.css">
+</head>
+<body>
+<div class="container">
+    <header class="header" id="header">
+        <div class="header-wrap" id="header-wrap"></div>
+    </header>
+    <section class="section" id="section">
+        <div class="section-wrap" id="section-wrap">
+            <div class="section-left" id="section-left"></div>
+            <div class="section-right" id="section-right">
+                <ol class="breadcrumb section-right-bar">
+                    <li><a href="#">当前位置：</a></li>
+                    <li><a href="#">负荷监控</a></li>
+                    <li class="active">天气预测</li>
+                </ol>
+                <div class="section-right-left">
+                    <ul id="myTree" class="ztree"></ul>
+                </div>
+                <div class="section-right-right">
+                    <div class="weather-container" id="weather-container">
+                        <img src="../static/img/weahter/weatherLeft.jpg" alt="">
+                        <img src="../static/img/weahter/weatherRight.jpg" alt="">
+                    </div>
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#thisDay" aria-controls="thisDay" role="tab" data-toggle="tab">本日</a></li>
+                            <li role="presentation"><a href="#thisMonth" aria-controls="thisMonth" role="tab" data-toggle="tab">本月</a></li>
+                            <li role="presentation"><a href="#thisYear" aria-controls="thisYear" role="tab" data-toggle="tab">本年</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="thisDay">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" name="workTimes" id="workTimes-day">
+                                    <label for="workTimes-day">工作时段</label>
+                                    <input type="checkbox" name="notWorkTimes" id="notWorkTimes-day">
+                                    <label for="notWorkTimes-day">非工作时段</label>
+                                    <button type="submit" class="btn btn-primary search "><span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询</button>
+                                </div>
+                                <div class="input-date-container">
+                                    <button class="previous-day"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                                    <input type="text" id="day-input">
+                                    <button class="next-day"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+                                </div>
+                                <div>
+                                    <div class="myTable-container myTable-container-left" id="thisDay-container-left"></div>
+                                    <div class="myTable-container myTable-container-right" id="thisDay-container-right"></div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="thisWeek">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="workTimes-week">
+                                    <label for="workTimes-week">工作时段</label>
+                                    <input type="checkbox" id="notWorkTimes-week">
+                                    <label for="notWorkTimes-week">非工作时段</label>
+                                    <button type="submit" class="btn btn-primary search "><span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询</button>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="thisMonth">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="workTimes-month">
+                                    <label for="workTimes-month">工作时段</label>
+                                    <input type="checkbox" id="notWorkTimes-month">
+                                    <label for="notWorkTimes-month">非工作时段</label>
+                                    <button type="submit" class="btn btn-primary search "><span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询</button>
+                                </div>
+                                <div class="input-date-container">
+                                    <button class="previous" id="previous-month">上一月</button>
+                                    <button class="now" id="now-month">本月</button>
+                                    <button class="next" id="next-month">下一月</button>
+                                </div>
+                                <div class="myTable-container" id="thisMonth-container"></div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="thisYear">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="workTimes-year">
+                                    <label for="workTimes-year">工作时段</label>
+                                    <input type="checkbox" id="notWorkTimes-year">
+                                    <label for="notWorkTimes-year">非工作时段</label>
+                                    <button type="submit" class="btn btn-primary search "><span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询</button>
+                                </div>
+                                <div class="input-date-container">
+                                    <button class="previous" id="previous-year">上一年</button>
+                                    <button class="now" id="now-year">本年</button>
+                                    <button class="next" id="next-year">下一年</button>
+                                </div>
+                                <div class="myTable-container" id="thisYear-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer" id="footer">
+        <div class="footer-wrap" id="footer-wrap"></div>
+    </footer>
+</div>
+<script type="text/javascript" src="../plugin/jquery/jquery-3.3.1-min.js"></script>
+<script type="text/javascript" src="../plugin/jquery/jquery.cookie.js"></script>
+
+<script type="text/javascript" src="../model/gulp/gulp.js"></script>
+<script type="text/javascript" src="../plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/common/common.js"></script>
+<script type="text/javascript" src="../plugin/zTree_v3/js/jquery.ztree.all.js"></script>
+<script type="text/javascript" src="../plugin/layui/layui.js"></script>
+<script type="text/javascript" src="../plugin/echarts/echarts.js"></script>
+<script type="text/javascript" src="../static/js/weather/weather.js"></script>
+</body>
+</html>

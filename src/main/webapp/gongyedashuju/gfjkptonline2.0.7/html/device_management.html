@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设备管理</title>
+    <link rel="stylesheet" href="../plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../plugin/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../static/css/common/common.css">
+    <link rel="stylesheet" href="../plugin/accordion/css/index.css">
+    <link rel="stylesheet" href="../static/css/device_management/device_management.css">
+</head>
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">添加设备</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-container clearfix">
+                        <label for="type">设备类型*</label>
+                        <input type="text" id="type">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="number">设备编号*</label>
+                        <input type="text" id="number">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="name">设备名称*</label>
+                        <input type="text" id="name">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="model">规格型号</label>
+                        <input type="text" id="model">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="status">设备状态*</label>
+                        <select name="status" id="status">
+                            <option value="1">已启用</option>
+                            <option value="0">已禁用</option>
+                        </select>
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="factoryNumber">出厂编号*</label>
+                        <input type="text" id="factoryNumber">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="current">电流（A）</label>
+                        <input type="text" id="current">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="voltage">电压（V）</label>
+                        <input type="text" id="voltage">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="frequency">频率（Hz）</label>
+                        <input type="text" id="frequency">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="ratedPower">额定功率（W）</label>
+                        <input type="text" id="ratedPower">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="price">单价（元）*</label>
+                        <input type="text" id="price">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="ipAddress">ip地址*</label>
+                        <input type="text" id="ipAddress">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="installationPosition">安装位置</label>
+                        <input type="text" id="installationPosition">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="managementUnit">管理单位</label>
+                        <input type="text" id="managementUnit">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="manufacturer">生产厂家</label>
+                        <input type="text" id="manufacturer">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="manufactureDate">生产日期*</label>
+                        <input type="date" id="manufactureDate">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="serviceLife">使用年限</label>
+                        <input type="text" id="serviceLife">
+                    </div>
+                    <div class="input-container clearfix">
+                        <label for="purchaseDate">购置日期*</label>
+                        <input type="date" id="purchaseDate">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="saveAddDevice()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <header class="header" id="header">
+            <div class="header-wrap" id="header-wrap"></div>
+        </header>
+        <section class="section" id="section">
+            <div class="section-wrap" id="section-wrap">
+                <div class="section-left" id="section-left"></div>
+                <div class="section-right" id="section-right">
+                    <ol class="breadcrumb section-right-bar">
+                        <li><a href="#">当前位置：</a></li>
+                        <li><a href="#">设备信息</a></li>
+                        <li class="active">设备管理</li>
+                    </ol>
+                    <div>
+                        <button class="btn btn-primary" id="add-device" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" aria-hidden="true">添加</span></button>
+                    </div>
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>类型名称</th>
+                                <th>ip地址</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <footer class="footer" id="footer">
+            <div class="footer-wrap" id="footer-wrap"></div>
+        </footer>
+    </div>
+    <script type="text/javascript" src="../plugin/jquery/jquery-3.3.1-min.js"></script>
+    <script type="text/javascript" src="../plugin/jquery/jquery.cookie.js"></script>
+
+    <script type="text/javascript" src="../model/gulp/gulp.js"></script>
+    <script type="text/javascript" src="../plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/common/common.js"></script>
+    <script type="text/javascript" src="../plugin/zTree_v3/js/jquery.ztree.all.js"></script>
+    <script type="text/javascript" src="../plugin/echarts/echarts.js"></script>
+    <script type="text/javascript" src="../static/js/device_management/device_management.js"></script>
+</body>
+</html>

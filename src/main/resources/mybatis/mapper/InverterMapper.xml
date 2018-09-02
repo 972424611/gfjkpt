@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.InverterMapper" >
+
+    <select id="selectAllInverter" resultType="com.cslg.gfjkpt.model.Inverter">
+        SELECT * FROM tb_inverter WHERE inverter_name = #{inverterName}
+    </select>
+
+    <select id="selectInverter" resultType="com.cslg.gfjkpt.model.Inverter">
+        SELECT * FROM tb_inverter WHERE inverter_name = #{inverterName} AND daily_output &lt; 500000 ORDER BY id DESC LIMIT #{pageQuery.offset}, #{pageQuery.pageSize}
+    </select>
+
+    <select id="selectInvertePowerByDate" resultType="String">
+        SELECT total_active_power FROM inverter WHERE inverter_name = #{inverterName} ORDER BY id LIMIT #{length}
+    </select>
+
+    <select id="selectInverterTotal" resultType="Integer">
+        SELECT COUNT(id) FROM tb_inverter WHERE inverter_name = #{inverterName}
+    </select>
+
+    <select id="selectInverterChart" resultType="com.cslg.gfjkpt.model.Inverter">
+        SELECT * FROM tb_inverter WHERE inverter_name = #{inverterName} AND times LIKE #{date}
+    </select>
+
+    <select id="selectInverterByName" resultType="com.cslg.gfjkpt.model.Inverter">
+        SELECT * FROM tb_inverter WHERE id = (SELECT MAX(id) FROM tb_inverter WHERE inverter_name = #{inverterName})
+    </select>
+
+    <select id="selectInverterNameList" resultType="String">
+        SELECT inverter_name FROM tb_user_inverter WHERE user_id = #{userId}
+    </select>
+
+    <select id="selectInverterNewest" resultType="com.cslg.gfjkpt.model.Inverter">
+        SELECT * FROM tb_inverter WHERE id = (SELECT MAX(id) FROM tb_inverter)
+    </select>
+</mapper>

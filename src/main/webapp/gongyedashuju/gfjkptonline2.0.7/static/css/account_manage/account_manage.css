@@ -1,0 +1,26 @@
+body{
+    padding-right: 0!important;
+}
+th,tr,td{
+    text-align: center;
+}
+.modal-dialog{
+    width: 80%;
+}
+.input-container{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+}
+.input-container:nth-child(1){
+    margin-left: 0;
+}
+.zTree-container{
+    display: inline-block;
+    vertical-align: top;
+    width: 23%;
+}
+.zTree-container > ul{
+    height: 300px;
+    overflow-y: scroll;
+}

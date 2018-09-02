@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.EquipmentMapper">
+
+    <insert id="insertEquipment">
+        INSERT INTO tb_equipment (type, number, name, model, factory_number,
+        current, voltage, frequency, rated_power, price, ip_address, installation_position,
+        management_unit, manufacturer, manufacture_date, service_life, purchase_date) VALUES
+        (#{type}, #{number}, #{name}, #{model}, #{factoryNumber}, #{current}, #{voltage}, #{frequency},
+         #{ratedPower}, #{price}, #{ipAddress}, #{installationPosition}, #{managementUnit}, #{manufacturer},
+         #{manufactureDate}, #{serviceLife}, #{purchaseDate})
+    </insert>
+
+    <delete id="deleteEquipmentById">
+        DELETE FROM tb_equipment WHERE id = #{id}
+    </delete>
+
+    <select id="selectEquipmentList" resultType="com.cslg.gfjkpt.model.Equipment">
+        SELECT * FROM tb_equipment
+    </select>
+</mapper>

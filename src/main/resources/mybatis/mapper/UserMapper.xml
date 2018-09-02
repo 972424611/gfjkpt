@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.UserMapper" >
+
+    <select id="selectUserById" resultType="com.cslg.gfjkpt.model.User">
+        SELECT id, username, role, create_time, update_time FROM tb_user WHERE id = #{id}
+    </select>
+
+    <select id="selectUserByUsername" resultType="com.cslg.gfjkpt.model.User">
+        SELECT id, username, role, create_time, update_time FROM tb_user WHERE username = #{username}
+    </select>
+
+    <select id="selectUserIdByAdmAndPw" resultType="com.cslg.gfjkpt.model.User">
+        SELECT * FROM tb_user WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <insert id="insertUser">
+        INSERT INTO tb_user (username, password, role, create_time, update_time)
+        VALUES (#{username}, #{password}, #{comment}, #{createTime}, #{updateTime})
+    </insert>
+</mapper>

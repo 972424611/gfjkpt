@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预测分析</title>
+    <link rel="stylesheet" href="../plugin/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../plugin/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+    <link rel="stylesheet" href="../static/css/common/common.css">
+    <link rel="stylesheet" href="../plugin/accordion/css/index.css">
+    <link rel="stylesheet" href="../static/css/prediction_analysis/prediction_analysis.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header" id="header">
+            <div class="header-wrap" id="header-wrap"></div>
+        </header>
+        <section class="section" id="section">
+            <div class="section-wrap" id="section-wrap">
+                <div class="section-left" id="section-left"></div>
+                <div class="section-right clearfix" id="section-right">
+                    <ol class="breadcrumb section-right-bar">
+                        <li><a href="#">当前位置：</a></li>
+                        <li><a href="#">光伏发电</a></li>
+                        <li class="active">预测分析</li>
+                    </ol>
+                    <div class="section-right-left">
+                        <ul id="myTree" class="ztree"></ul>
+                    </div>
+                    <div class="section-right-right">
+                        <div class="chart-container" id="day-chart"></div>
+                        <div class="chart-container" id="month-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer" id="footer">
+            <div class="footer-wrap" id="footer-wrap"></div>
+        </footer>
+    </div>
+    <script type="text/javascript" src="../plugin/jquery/jquery-3.3.1-min.js"></script>
+    <script type="text/javascript" src="../plugin/jquery/jquery.cookie.js"></script>
+
+    <script type="text/javascript" src="../model/gulp/gulp.js"></script>
+    <script type="text/javascript" src="../plugin/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/common/common.js"></script>
+    <script type="text/javascript" src="../plugin/zTree_v3/js/jquery.ztree.all.js"></script>
+    <script type="text/javascript" src="../plugin/echarts/echarts.js"></script>
+    <script type="text/javascript" src="../static/js/common/chartDate.js"></script>
+    <script type="text/javascript" src="../static/js/prediction_analysis/prediction_analysis.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:component-scan base-package="com.cslg.gfjkpt.controller"/>
+
+	<!-- 配置视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--<mvc:mapping path="/admin/*"/>-->
+			<!--<mvc:mapping path="/inverter/*"/>-->
+			<!--<mvc:mapping path="/load/*"/>-->
+			<!--<bean class="com.cslg.gfjkpt.interceptor.LoginInterceptor"/>-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
+
+	<!--<mvc:interceptors>-->
+		<!--<bean class="com.cslg.gfjkpt.interceptor.HttpInterceptor"/>-->
+	<!--</mvc:interceptors>-->
+
+	<!--<mvc:interceptors>-->
+		<!--<mvc:interceptor>-->
+			<!--<mvc:mapping path="/admin/*"/>-->
+			<!--<bean class="com.cslg.gfjkpt.interceptor.PermitInterceptor"/>-->
+		<!--</mvc:interceptor>-->
+	<!--</mvc:interceptors>-->
+
+	<!-- 静态资源处理 -->
+	<mvc:default-servlet-handler/>
+
+
+	<mvc:interceptors>
+		<bean class="com.cslg.gfjkpt.interceptor.HttpInterceptor"/>
+	</mvc:interceptors>
+
+	<!--
+		<mvc:annotation-driven/>相当于注册了DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter两个bean
+		配置一些messageconverter。即解决了@Controller注解的使用前提配置。
+	-->
+	<mvc:annotation-driven/>
+</beans>
