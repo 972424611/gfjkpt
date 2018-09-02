@@ -37,7 +37,6 @@ window.onload = function () {
     })
 };
 
-
 function judgeForm() {//用来判断用户名和密码是否为空
     if($username.val() === '' && $password.val() === ''){
         $warning_bar.css('display','block');
