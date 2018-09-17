@@ -2,14 +2,13 @@ package com.cslg.gfjkpt.service.impl;
 
 import com.cslg.gfjkpt.beans.load.ChartParam;
 import com.cslg.gfjkpt.beans.load.ContrastChartParam;
+import com.cslg.gfjkpt.beans.load.ContrastParam;
 import com.cslg.gfjkpt.common.BeanValidator;
 import com.cslg.gfjkpt.model.Load;
 import com.cslg.gfjkpt.mapper.LoadMapper;
+import com.cslg.gfjkpt.service.InverterService;
 import com.cslg.gfjkpt.service.LoadService;
-import com.cslg.gfjkpt.vo.load.ChartVo;
-import com.cslg.gfjkpt.vo.load.ContrastChartVo;
-import com.cslg.gfjkpt.vo.load.IconVo;
-import com.cslg.gfjkpt.vo.load.PieChartVo;
+import com.cslg.gfjkpt.vo.load.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +25,16 @@ public class LoadServiceImpl implements LoadService {
 
     private final LoadMapper loadMapper;
 
+    private final InverterService inverterService;
+
     @Autowired
-    public LoadServiceImpl(LoadMapper loadMapper) {
+    public LoadServiceImpl(LoadMapper loadMapper, InverterService inverterService) {
         this.loadMapper = loadMapper;
+        this.inverterService = inverterService;
     }
 
     private List<ChartVo> dealDate(int start, int end, ChartParam param, String s) {
         String str = "%" + param.getDate() + "%";
-        //TODO; 这里应该区别下用户
         String local = "长沙理工大学" + param.getLocal();
         List<Load> loadList = loadMapper.selectLoadChart(local, str);
         List<ChartVo> chartVoList = new ArrayList<>();
@@ -203,6 +204,43 @@ public class LoadServiceImpl implements LoadService {
         pieChartVoList.add(pieChartVo);
 
         return pieChartVoList;
+    }
+
+    @Override
+    public List<ContrastVo> getContrast(ContrastParam contrastParam) {
+        List<ContrastVo> contrastVoList = new ArrayList<>();
+        com.cslg.gfjkpt.beans.load.ChartParam loadChartParam
+                = new com.cslg.gfjkpt.beans.load.ChartParam();
+        loadChartParam.setDate(contrastParam.getDate());
+        loadChartParam.setType(contrastParam.getType());
+        loadChartParam.setLocal("工一");
+        List<ChartVo> loadChartVoList = getLoadChart(loadChartParam);
+
+        com.cslg.gfjkpt.beans.inverter.ChartParam inverterChartParam
+                = new com.cslg.gfjkpt.beans.inverter.ChartParam();
+        inverterChartParam.setField("总有功功率");
+        inverterChartParam.setDate(contrastParam.getDate());
+        inverterChartParam.setType(contrastParam.getType());
+        inverterChartParam.setName("inverter1");
+        List<com.cslg.gfjkpt.vo.inverter.ChartVo> inverterChartVoList
+                = inverterService.getInverterChart(inverterChartParam);
+
+        for(com.cslg.gfjkpt.vo.inverter.ChartVo chartVo : inverterChartVoList) {
+            ContrastVo contrastVo = new ContrastVo();
+            contrastVo.setPowerGeneration(chartVo.getField());
+            contrastVo.setTimes(chartVo.getTimes());
+            Iterator iterator = loadChartVoList.iterator();
+            while(iterator.hasNext()) {
+                ChartVo loadChartVo = (ChartVo) iterator.next();
+                if(loadChartVo.getTimes().equals(chartVo.getTimes())) {
+                    contrastVo.setPowerConsumption(loadChartVo.getActivePower());
+                }
+                iterator.remove();
+            }
+            contrastVoList.add(contrastVo);
+        }
+
+        return contrastVoList;
     }
 
 }

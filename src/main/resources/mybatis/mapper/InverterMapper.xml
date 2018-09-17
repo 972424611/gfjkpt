@@ -19,7 +19,7 @@
     </select>
 
     <select id="selectInverterChart" resultType="com.cslg.gfjkpt.model.Inverter">
-        SELECT * FROM tb_inverter WHERE inverter_name = #{inverterName} AND times LIKE #{date}
+        SELECT * FROM tb_inverter WHERE inverter_name = #{inverterName} AND times LIKE binary #{date}
     </select>
 
     <select id="selectInverterByName" resultType="com.cslg.gfjkpt.model.Inverter">
@@ -32,5 +32,9 @@
 
     <select id="selectInverterNewest" resultType="com.cslg.gfjkpt.model.Inverter">
         SELECT * FROM tb_inverter WHERE id = (SELECT MAX(id) FROM tb_inverter)
+    </select>
+
+    <select id="selectInverterCVChart" resultType="com.cslg.gfjkpt.model.Inverter">
+        SELECT * FROM tb_inverter WHERE times LIKE binary #{date}
     </select>
 </mapper>

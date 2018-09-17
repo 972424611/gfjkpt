@@ -1,12 +1,10 @@
 package com.cslg.gfjkpt.service;
 
+import com.cslg.gfjkpt.beans.inverter.CVParam;
 import com.cslg.gfjkpt.beans.inverter.ChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
 import com.cslg.gfjkpt.beans.inverter.PredictParam;
-import com.cslg.gfjkpt.vo.inverter.ChartVo;
-import com.cslg.gfjkpt.vo.inverter.IconVo;
-import com.cslg.gfjkpt.vo.inverter.InverterVo;
-import com.cslg.gfjkpt.vo.inverter.PredictVo;
+import com.cslg.gfjkpt.vo.inverter.*;
 
 import java.util.List;
 
@@ -25,4 +23,6 @@ public interface InverterService {
     IconVo getInverterIcon();
 
     PredictVo getInverterPredict(PredictParam predictParam);
+
+    CVChartVo getCVChart(CVParam cvParam);
 }

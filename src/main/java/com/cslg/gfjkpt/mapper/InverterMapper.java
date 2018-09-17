@@ -24,4 +24,6 @@ public interface InverterMapper {
     List<String> selectInverterNameList(int userId);
 
     Inverter selectInverterNewest();
+
+    List<Inverter> selectInverterCVChart(String str);
 }

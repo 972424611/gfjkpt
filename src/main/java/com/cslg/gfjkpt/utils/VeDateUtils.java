@@ -12,19 +12,57 @@ import java.util.Date;
 public class VeDateUtils {
 
     /**
+     * 获取指定月前一个月
+     * @param specifiedDay yyyy-MM-dd
+     * @return yyyy-MM-dd
+     */
+    public static String getMonthBefore(String specifiedDay) {
+        Calendar calendar = Calendar.getInstance();
+        Date date;
+        try {
+            date = new SimpleDateFormat("yyyy-MM").parse(specifiedDay);
+            calendar.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int month = calendar.get(Calendar.MONTH);
+        calendar.set(Calendar.MONTH, month - 1);
+        return new SimpleDateFormat("yyyy-MM").format(calendar.getTime());
+    }
+
+    /**
+     * 获取指定月的后一个月
+     * @param specifiedDay yyyy-MM
+     * @return yyyy-MM
+     */
+    public static String getMonthAfter(String specifiedDay) {
+        Calendar calendar = Calendar.getInstance();
+        Date date;
+        try {
+            date = new SimpleDateFormat("yyyy-MM").parse(specifiedDay);
+            calendar.setTime(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int month = calendar.get(Calendar.MONTH);
+        calendar.set(Calendar.MONTH, month + 1);
+        return new SimpleDateFormat("yyyy-MM").format(calendar.getTime());
+    }
+
+    /**
      * 获取指定日期的前一天
      * @param specifiedDay yyyy-MM-dd
      * @return yyyy-MM-dd
      */
     public static String getDayBefore(String specifiedDay) {
         Calendar calendar = Calendar.getInstance();
-        Date date = null;
+        Date date;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(specifiedDay);
+            calendar.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        calendar.setTime(date);
         int day = calendar.get(Calendar.DATE);
         calendar.set(Calendar.DATE, day - 1);
         return new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
@@ -37,13 +75,13 @@ public class VeDateUtils {
      */
     public static String getDayAfter(String specifiedDay) {
         Calendar calendar = Calendar.getInstance();
-        Date date = null;
+        Date date;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(specifiedDay);
+            calendar.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        calendar.setTime(date);
         int day = calendar.get(Calendar.DATE);
         calendar.set(Calendar.DATE, day + 1);
         return new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());

@@ -35,12 +35,8 @@ public class AdminController {
     @ResponseBody
     @RequestMapping(value = "/list")
     public ResultJson list(HttpServletRequest request) {
-        String role = (String) CookieSessionManage.getSession(request);
-        if("管理员".equals(role)) {
-            List<UserVo> userList = adminService.getUsers();
-            return ResultJson.success(userList);
-        }
-        return ResultJson.success(new ArrayList<>());
+        List<UserVo> userList = adminService.getUsers();
+        return ResultJson.success(userList);
     }
 
     @ResponseBody

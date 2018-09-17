@@ -2,10 +2,8 @@ package com.cslg.gfjkpt.service;
 
 import com.cslg.gfjkpt.beans.load.ChartParam;
 import com.cslg.gfjkpt.beans.load.ContrastChartParam;
-import com.cslg.gfjkpt.vo.load.ChartVo;
-import com.cslg.gfjkpt.vo.load.ContrastChartVo;
-import com.cslg.gfjkpt.vo.load.IconVo;
-import com.cslg.gfjkpt.vo.load.PieChartVo;
+import com.cslg.gfjkpt.beans.load.ContrastParam;
+import com.cslg.gfjkpt.vo.load.*;
 
 import java.util.List;
 import java.util.Set;
@@ -23,4 +21,6 @@ public interface LoadService {
     Set<ContrastChartVo> getContrastChart(ContrastChartParam contrastChartParam);
 
     List<PieChartVo> getPieChart();
+
+    List<ContrastVo> getContrast(ContrastParam contrastParam);
 }

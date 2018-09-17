@@ -1,18 +1,16 @@
 package com.cslg.gfjkpt.service.impl;
 
+import com.cslg.gfjkpt.beans.inverter.CVParam;
 import com.cslg.gfjkpt.beans.inverter.ChartParam;
 import com.cslg.gfjkpt.beans.PageQuery;
 import com.cslg.gfjkpt.beans.inverter.PredictParam;
 import com.cslg.gfjkpt.common.BeanValidator;
 import com.cslg.gfjkpt.common.RequestHolder;
-import com.cslg.gfjkpt.vo.inverter.ChartVo;
-import com.cslg.gfjkpt.vo.inverter.IconVo;
-import com.cslg.gfjkpt.vo.inverter.InverterVo;
+import com.cslg.gfjkpt.vo.inverter.*;
 import com.cslg.gfjkpt.model.Inverter;
 import com.cslg.gfjkpt.model.User;
 import com.cslg.gfjkpt.mapper.InverterMapper;
 import com.cslg.gfjkpt.service.InverterService;
-import com.cslg.gfjkpt.vo.inverter.PredictVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +46,6 @@ public class InverterServiceImpl implements InverterService {
     @Override
     public InverterVo getInverterData(String inverterName, PageQuery pageQuery) {
         BeanValidator.check(pageQuery);
-        //TODO 这里区别下用户
         InverterVo inverterVo = new InverterVo();
         Integer sum = inverterMapper.selectInverterTotal(inverterName);
         List<Inverter> inverterList =  inverterMapper.selectInverter(inverterName, pageQuery);
@@ -109,13 +106,13 @@ public class InverterServiceImpl implements InverterService {
         return list;
     }
 
-    private List<ChartVo> dealDate(int start, int end, ChartParam param, String s) {
+    private List<ChartVo> dealDate(int end, ChartParam param, String s) {
         String str = "%" + param.getDate() + "%";
-        //TODO; 这里应该区别下用户
+
         String inverterName = "inverter1";
         List<Inverter> list = inverterMapper.selectInverterChart(inverterName, str);
         List<ChartVo> chartVoList = new ArrayList<>();
-        for(int i = start; i <= end; i++) {
+        for(int i = 1; i <= end; i++) {
             double field = 0;
             double tansTemp1Total = 0;
             double tansTemp2Total = 0;
@@ -175,15 +172,15 @@ public class InverterServiceImpl implements InverterService {
 
     @Override
     public List<ChartVo> getInverterChart(ChartParam chartParam) {
-        //BeanValidator.check(chartParam);
+        BeanValidator.check(chartParam);
         if("day".equals(chartParam.getType())) {
-            return dealDate(1, 24, chartParam, ":00");
+            return dealDate(24, chartParam, ":00");
         } else if("month".equals(chartParam.getType())) {
-            return dealDate(1, 30, chartParam, "日");
+            return dealDate(30, chartParam, "日");
         } else if("quarter".equals(chartParam.getType())) {
-            return dealDate(1, 12, chartParam, "");
+            return dealDate(12, chartParam, "");
         } else if("year".equals(chartParam.getType())) {
-            return dealDate(1, 12, chartParam, "月");
+            return dealDate(12, chartParam, "月");
         }
         return null;
     }
@@ -255,6 +252,92 @@ public class InverterServiceImpl implements InverterService {
         predictVo.setVoDayList(voDayList);
         predictVo.setVoMonthList(voMonthList);
         return predictVo;
+    }
+
+
+    private CVChartVo dealDate(int end, CVParam param, String s) {
+        String str = "%" + param.getDate() + "%";
+        List<Inverter> list = inverterMapper.selectInverterCVChart(str);
+        List<CVChartVo.Current> currentList = new ArrayList<>();
+        List<CVChartVo.Voltage> voltageList = new ArrayList<>();
+        for(int i = 1; i <= end; i++) {
+            double aPhaseCurrent = 0;
+            double aPhaseVoltage = 0;
+            double bPhaseCurrent = 0;
+            double bPhaseVoltage = 0;
+            double cPhaseCurrent = 0;
+            double cPhaseVoltage = 0;
+            int sum = 0;
+            boolean flag = false;
+            String time = "";
+            if("day".equals(param.getType())) {
+                time = i >= 10 ? param.getDate() + " " + i : param.getDate() + " 0" + i;
+            } else if("month".equals(param.getType())
+                    || "year".equals(param.getType())
+                    || "quarter".equals(param.getType())) {
+                time = i >= 10 ? param.getDate() + "-" + i : param.getDate() + "-0" + i;
+            }
+            Iterator iterator = list.iterator();
+            while(iterator.hasNext()) {
+                Inverter inverter = (Inverter) iterator.next();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String strDate = dateFormat.format(inverter.getTimes());
+                if(strDate.contains(time)) {
+                    aPhaseCurrent += inverter.getaPhaseCurrent();
+                    aPhaseVoltage += inverter.getaPhaseVoltage();
+                    bPhaseCurrent += inverter.getbPhaseCurrent();
+                    bPhaseVoltage += inverter.getbPhaseVoltage();
+                    cPhaseCurrent += inverter.getcPhaseCurrent();
+                    cPhaseVoltage += inverter.getcPhaseVoltage();
+                    sum++;
+                    flag = true;
+                    iterator.remove();
+                }
+            }
+            if(flag) {
+                time = time.substring(time.length() - 2);
+                DecimalFormat df = new DecimalFormat("#.0");
+                CVChartVo.Current current = new CVChartVo().new Current();
+                current.setaPhaseCurrent(Double.valueOf(df.format(aPhaseCurrent / sum)));
+                current.setbPhaseCurrent(Double.valueOf(df.format(bPhaseCurrent / sum)));
+                current.setcPhaseCurrent(Double.valueOf(df.format(cPhaseCurrent / sum)));
+                current.setTimes(Integer.valueOf(time).toString() + s);
+                currentList.add(current);
+
+                CVChartVo.Voltage voltage  = new CVChartVo().new Voltage();
+                voltage.setaPhaseVoltage(Double.valueOf(df.format(aPhaseVoltage / sum)));
+                voltage.setbPhaseVoltage(Double.valueOf(df.format(bPhaseVoltage / sum)));
+                voltage.setcPhaseVoltage(Double.valueOf(df.format(cPhaseVoltage / sum)));
+                voltage.setTimes(Integer.valueOf(time).toString() + s);
+                voltageList.add(voltage);
+            } else {
+                CVChartVo.Current current = new CVChartVo().new Current();
+                CVChartVo.Voltage voltage  = new CVChartVo().new Voltage();
+                time = time.substring(time.length() - 2);
+                current.setTimes(Integer.valueOf(time).toString() + s);
+                voltage.setTimes(Integer.valueOf(time).toString() + s);
+                currentList.add(current);
+                voltageList.add(voltage);
+            }
+        }
+        CVChartVo chartVoList = new CVChartVo();
+        chartVoList.setCurrentList(currentList);
+        chartVoList.setVoltageList(voltageList);
+        return chartVoList;
+    }
+
+
+    @Override
+    public CVChartVo getCVChart(CVParam cvParam) {
+        BeanValidator.check(cvParam);
+        if("day".equals(cvParam.getType())) {
+            return dealDate(24, cvParam, ":00");
+        } else if("month".equals(cvParam.getType())) {
+            return dealDate(30, cvParam, "日");
+        } else if("year".equals(cvParam.getType())) {
+            return dealDate(12, cvParam, "月");
+        }
+        return null;
     }
 
 }
