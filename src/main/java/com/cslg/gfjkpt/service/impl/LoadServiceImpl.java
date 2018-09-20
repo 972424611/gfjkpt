@@ -213,7 +213,7 @@ public class LoadServiceImpl implements LoadService {
                 = new com.cslg.gfjkpt.beans.load.ChartParam();
         loadChartParam.setDate(contrastParam.getDate());
         loadChartParam.setType(contrastParam.getType());
-        loadChartParam.setLocal("工一");
+        loadChartParam.setLocal("工科一号楼");
         List<ChartVo> loadChartVoList = getLoadChart(loadChartParam);
 
         com.cslg.gfjkpt.beans.inverter.ChartParam inverterChartParam
@@ -234,8 +234,9 @@ public class LoadServiceImpl implements LoadService {
                 ChartVo loadChartVo = (ChartVo) iterator.next();
                 if(loadChartVo.getTimes().equals(chartVo.getTimes())) {
                     contrastVo.setPowerConsumption(loadChartVo.getActivePower());
+                    iterator.remove();
+                    break;
                 }
-                iterator.remove();
             }
             contrastVoList.add(contrastVo);
         }
