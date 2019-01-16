@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.ControllableSocketInfoMapper">
+    <!--查询指定日期-->
+    <select id="selectControllableSocketInfo" resultType="com.cslg.gfjkpt.model.ControllableSocketInfo">
+        select * from tb_controllable_socket_info where to_days(time)=to_days(#{time}) order by time asc
+    </select>
+</mapper>

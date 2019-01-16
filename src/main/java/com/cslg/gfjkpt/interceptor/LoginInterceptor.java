@@ -18,6 +18,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        //关闭
+//        if (true){
+//            return true;
+//        }
         User user = (User) CookieSessionManage.getSession(httpServletRequest);
         if(user != null) {
             RequestHolder.add(user);

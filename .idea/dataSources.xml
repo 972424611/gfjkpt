@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@rm-bp1p625j8640m9ug7uo.mysql.rds.aliyuncs.com" uuid="0ce952b6-0745-427d-af40-09f042d1cb58">
+    <data-source source="LOCAL" name="gfjkpt@rm-bp1p625j8640m9ug7uo.mysql.rds.aliyuncs.com" uuid="4fe09087-fb82-46b2-8b52-53ddf31c40a9">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://rm-bp1p625j8640m9ug7uo.mysql.rds.aliyuncs.com:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://rm-bp1p625j8640m9ug7uo.mysql.rds.aliyuncs.com:3306/gfjkpt?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

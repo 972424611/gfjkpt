@@ -3,8 +3,11 @@ package com.cslg.gfjkpt.controller;
 import com.cslg.gfjkpt.beans.UserParam;
 import com.cslg.gfjkpt.common.CookieSessionManage;
 import com.cslg.gfjkpt.common.ResultJson;
+import com.cslg.gfjkpt.common.SocketConnector;
 import com.cslg.gfjkpt.service.AdminService;
+import com.cslg.gfjkpt.utils.CodeUtil;
 import com.cslg.gfjkpt.vo.UserVo;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,5 +50,19 @@ public class AdminController {
             adminService.deleteUserById(id);
         }
         return ResultJson.success();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/sendCommand")
+    public ResultJson sendCommand(String cmd){
+        try {
+            boolean b=SocketConnector.sentMsg(cmd);
+            if (b){
+                return ResultJson.success();
+            }
+        }catch (Exception e){
+            return ResultJson.fail("服务端异常!");
+        }
+        return ResultJson.fail("发送失败");
     }
 }

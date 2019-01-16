@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cslg.gfjkpt.mapper.TemperatureSensorMapper">
+    <select id="selectIndoorTemperatureSensorInfo" resultType="com.cslg.gfjkpt.model.TemperatureSensorInfo">
+        select * from tb_temperature_sensor where to_days(time)=to_days(#{time}) and flag=0
+    </select>
+
+    <select id="selectCurrentOutdoorTemperatureSensorInfo" resultType="com.cslg.gfjkpt.model.TemperatureSensorInfo">
+        select * from tb_temperature_sensor where time=(select max(time) from tb_temperature_sensor) and flag=1
+    </select>
+</mapper>
